@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sumaiya Khan — Researcher & Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    /* ───────────── TOKENS ───────────── */
+    :root {
+      --bg:        #0d1117;
+      --bg2:       #111827;
+      --bg3:       #1a2235;
+      --border:    rgba(255,255,255,0.07);
+      --gold:      #c9a84c;
+      --gold-dim:  rgba(201,168,76,0.15);
+      --gold-glow: rgba(201,168,76,0.35);
+      --text:      #e2e8f0;
+      --muted:     #8892a4;
+      --serif:     'Playfair Display', Georgia, serif;
+      --sans:      'DM Sans', sans-serif;
+      --mono:      'DM Mono', monospace;
+      --radius:    12px;
+      --tr:        0.3s ease;
+    }
+
+    /* ───────────── RESET ───────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ───────────── SCROLLBAR ───────────── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 99px; }
+
+    /* ───────────── NOISE OVERLAY ───────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: .4;
+    }
+
+    /* ───────────── NAV ───────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 64px;
+      background: rgba(13,17,23,0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      transition: var(--tr);
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color var(--tr);
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      padding: 0.45rem 1.2rem;
+      border: 1px solid var(--gold);
+      border-radius: 99px;
+      color: var(--gold) !important;
+      font-size: 0.78rem !important;
+      letter-spacing: 1px !important;
+      transition: background var(--tr), color var(--tr) !important;
+    }
+    .nav-cta:hover { background: var(--gold); color: var(--bg) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: var(--tr); }
+
+    /* ───────────── HERO ───────────── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 100px 8% 60px;
+      gap: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 1.4rem;
+    }
+    .hero-tag::before {
+      content: '';
+      display: inline-block;
+      width: 32px; height: 1px;
+      background: var(--gold);
+    }
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+      color: #f0ebe0;
+    }
+    .hero-name span { color: var(--gold); }
+    .hero-role {
+      font-family: var(--mono);
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 1.6rem;
+      min-height: 1.5rem;
+    }
+    .hero-role .typed-cursor { color: var(--gold); }
+    .hero-desc {
+      color: var(--muted);
+      font-size: 0.97rem;
+      max-width: 480px;
+      margin-bottom: 2.4rem;
+      line-height: 1.8;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      padding: 0.8rem 2rem;
+      background: var(--gold);
+      color: var(--bg);
+      border-radius: 99px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      letter-spacing: 0.5px;
+      transition: box-shadow var(--tr), transform var(--tr);
+    }
+    .btn-primary:hover { box-shadow: 0 0 28px var(--gold-glow); transform: translateY(-2px); }
+    .btn-outline {
+      padding: 0.8rem 2rem;
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      font-size: 0.88rem;
+      color: var(--muted);
+      transition: border-color var(--tr), color var(--tr);
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .hero-socials { display: flex; gap: 1rem; margin-top: 2.2rem; }
+    .hero-socials a {
+      width: 38px; height: 38px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      transition: border-color var(--tr), color var(--tr), transform var(--tr);
+    }
+    .hero-socials a:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); }
+    .hero-img-wrap {
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .hero-img-ring {
+      position: relative;
+      width: 340px; height: 340px;
+    }
+    .hero-img-ring::before {
+      content: '';
+      position: absolute; inset: -14px;
+      border-radius: 50%;
+      border: 1px dashed rgba(201,168,76,0.4);
+      animation: spin 20s linear infinite;
+    }
+    .hero-img-ring::after {
+      content: '';
+      position: absolute; inset: -28px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,0.12);
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hero-img-ring img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--gold);
+      filter: grayscale(20%);
+    }
+    .hero-img-placeholder {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      border: 3px solid var(--gold);
+      background: var(--bg3);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      color: var(--muted); gap: 8px;
+    }
+    .hero-img-placeholder i { font-size: 3rem; color: var(--gold); opacity: 0.5; }
+    .hero-stats {
+      display: flex; gap: 2.5rem; margin-top: 2.5rem;
+    }
+    .stat { display: flex; flex-direction: column; }
+    .stat-num {
+      font-family: var(--serif);
+      font-size: 1.8rem; font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+    /* ───────────── SECTION COMMON ───────────── */
+    section { padding: 90px 8%; }
+    .section-label {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+    .section-label::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      color: #f0ebe0;
+      margin-bottom: 3rem;
+      font-weight: 600;
+    }
+
+    /* ───────────── ABOUT ───────────── */
+    #about { background: var(--bg2); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--muted); font-size: 0.97rem; margin-bottom: 1.2rem; line-height: 1.9;
+    }
+    .about-text p span { color: var(--gold); font-weight: 500; }
+    .about-highlights { display: flex; flex-direction: column; gap: 1rem; }
+    .highlight-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.4rem;
+      transition: border-color var(--tr), transform var(--tr);
+    }
+    .highlight-card:hover { border-color: rgba(201,168,76,0.3); transform: translateX(4px); }
+    .highlight-card .hc-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .highlight-card .hc-val { font-size: 0.92rem; color: var(--text); font-weight: 500; }
+    .highlight-card .hc-sub { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+
+    /* ───────────── RESEARCH ───────────── */
+    #research { background: var(--bg); }
+    .research-grid { display: grid; gap: 1.5rem; }
+    .pub-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 1.8rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: start;
+      transition: box-shadow var(--tr), transform var(--tr);
+    }
+    .pub-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.35); transform: translateY(-3px); }
+    .pub-type {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 99px;
+      margin-bottom: 0.7rem;
+    }
+    .pub-type.conference { background: rgba(201,168,76,0.15); color: var(--gold); }
+    .pub-type.review     { background: rgba(100,180,255,0.1); color: #64b4ff; }
+    .pub-type.chapter    { background: rgba(160,255,160,0.1); color: #7ddf7d; }
+    .pub-title {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      color: #f0ebe0;
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+    .pub-authors { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.3rem; }
+    .pub-authors strong { color: var(--text); }
+    .pub-venue { font-size: 0.8rem; color: var(--gold); font-style: italic; }
+    .pub-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 0.72rem;
+      padding: 4px 12px;
+      border-radius: 99px;
+      white-space: nowrap;
+      align-self: flex-start;
+    }
+    .pub-badge.accepted  { background: rgba(34,197,94,0.12); color: #4ade80; border: 1px solid rgba(34,197,94,0.2); }
+    .pub-badge.review    { background: rgba(251,191,36,0.12); color: #fbbf24; border: 1px solid rgba(251,191,36,0.2); }
+
+    /* Thesis block */
+    .thesis-block {
+      background: linear-gradient(135deg, var(--bg3) 0%, rgba(201,168,76,0.05) 100%);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+    .thesis-block h3 {
+      font-family: var(--serif); font-size: 1.15rem; color: #f0ebe0; margin-bottom: 0.5rem;
+    }
+    .thesis-block p { color: var(--muted); font-size: 0.9rem; }
+
+    /* ───────────── PROJECTS ───────────── */
+    #projects { background: var(--bg2); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      transition: border-color var(--tr), transform var(--tr), box-shadow var(--tr);
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity var(--tr);
+    }
+    .project-card:hover { border-color: rgba(201,168,76,0.25); transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.4); }
+    .project-card:hover::before { opacity: 1; }
+    .project-icon {
+      width: 42px; height: 42px;
+      background: var(--gold-dim);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); font-size: 1.1rem;
+    }
+    .project-tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+    .project-tag {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      padding: 3px 9px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      color: var(--muted);
+    }
+    .project-title { font-family: var(--serif); font-size: 1.1rem; color: #f0ebe0; }
+    .project-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; flex: 1; }
+    .project-type-badge {
+      font-size: 0.68rem;
+      font-family: var(--mono);
+      letter-spacing: 1px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .project-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.8rem;
+      color: var(--gold);
+      margin-top: 0.5rem;
+      font-weight: 500;
+      transition: gap var(--tr);
+    }
+    .project-link:hover { gap: 10px; }
+
+    /* ───────────── SKILLS ───────────── */
+    #skills { background: var(--bg); }
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+    .skills-col h3 {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--gold);
+      margin-bottom: 1.4rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .skill-item { margin-bottom: 1.2rem; }
+    .skill-row { display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .skill-name { font-size: 0.88rem; color: var(--text); }
+    .skill-pct { font-family: var(--mono); font-size: 0.75rem; color: var(--gold); }
+    .skill-track {
+      height: 4px; background: var(--bg3); border-radius: 99px; overflow: hidden;
+    }
+    .skill-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--gold) 0%, rgba(201,168,76,0.5) 100%);
+      width: 0;
+      transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+    }
+    .skill-tags-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 0.8rem; }
+    .skill-chip {
+      font-size: 0.78rem;
+      padding: 5px 14px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      color: var(--muted);
+      transition: border-color var(--tr), color var(--tr);
+    }
+    .skill-chip:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ───────────── EXTRA ───────────── */
+    #extra { background: var(--bg2); }
+    .extra-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .extra-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.6rem;
+      transition: border-color var(--tr);
+    }
+    .extra-card:hover { border-color: rgba(201,168,76,0.3); }
+    .extra-card .ec-icon {
+      width: 40px; height: 40px;
+      background: var(--gold-dim);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .extra-card h4 { font-family: var(--serif); font-size: 1rem; color: #f0ebe0; margin-bottom: 4px; }
+    .extra-card .ec-org { font-size: 0.8rem; color: var(--gold); margin-bottom: 6px; }
+    .extra-card .ec-period {
+      font-family: var(--mono); font-size: 0.7rem; color: var(--muted);
+      letter-spacing: 0.5px; margin-bottom: 0.7rem;
+    }
+    .extra-card p { font-size: 0.83rem; color: var(--muted); line-height: 1.7; }
+
+    /* ───────────── CONTACT ───────────── */
+    #contact { background: var(--bg); }
+    .contact-wrap {
+      max-width: 700px; margin: 0 auto; text-align: center;
+    }
+    .contact-wrap p { color: var(--muted); font-size: 0.97rem; margin-bottom: 2.5rem; line-height: 1.8; }
+    .contact-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 3rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 10px;
+      padding: 0.8rem 1.6rem;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.88rem;
+      color: var(--muted);
+      transition: border-color var(--tr), color var(--tr), transform var(--tr);
+    }
+    .contact-link i { color: var(--gold); }
+    .contact-link:hover { border-color: rgba(201,168,76,0.3); color: var(--gold); transform: translateY(-3px); }
+    .contact-form {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      text-align: left;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1rem; }
+    .form-group label { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.5px; }
+    .form-group input, .form-group textarea {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color var(--tr);
+      resize: none;
+    }
+    .form-group input:focus, .form-group textarea:focus { border-color: rgba(201,168,76,0.4); }
+    .form-submit {
+      width: 100%;
+      padding: 0.9rem;
+      background: var(--gold);
+      color: var(--bg);
+      border: none;
+      border-radius: 8px;
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: box-shadow var(--tr), transform var(--tr);
+    }
+    .form-submit:hover { box-shadow: 0 0 24px var(--gold-glow); transform: translateY(-2px); }
+
+    /* ───────────── FOOTER ───────────── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 2rem 8%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    footer .f-logo { font-family: var(--serif); color: var(--gold); font-size: 1rem; }
+
+    /* ───────────── FADE-IN ANIMATIONS ───────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ───────────── MOBILE NAV ───────────── */
+    .mobile-nav {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(13,17,23,0.98);
+      z-index: 800;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 1.5rem; font-family: var(--serif); color: var(--text); }
+    .mobile-nav a:hover { color: var(--gold); }
+
+    /* ───────────── RESPONSIVE ───────────── */
+    @media(max-width: 900px) {
+      #hero { grid-template-columns: 1fr; text-align: center; padding-top: 120px; }
+      .hero-desc { max-width: 100%; }
+      .hero-btns, .hero-socials { justify-content: center; }
+      .hero-img-wrap { order: -1; }
+      .hero-img-ring { width: 220px; height: 220px; }
+      .hero-stats { justify-content: center; }
+      .about-grid, .skills-grid, .extra-grid { grid-template-columns: 1fr; }
+      .pub-card { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+    @media(max-width: 480px) {
+      section { padding: 60px 5%; }
+      nav { padding: 0 5%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">SK.</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#extra">Activities</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMobileNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about" onclick="toggleMobileNav()">About</a>
+  <a href="#research" onclick="toggleMobileNav()">Research</a>
+  <a href="#projects" onclick="toggleMobileNav()">Projects</a>
+  <a href="#skills" onclick="toggleMobileNav()">Skills</a>
+  <a href="#extra" onclick="toggleMobileNav()">Activities</a>
+  <a href="#contact" onclick="toggleMobileNav()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content fade-in">
+    <div class="hero-tag">CSE · KUET · Bangladesh</div>
+    <h1 class="hero-name">Sumaiya<br><span>Khan</span></h1>
+    <div class="hero-role"><span id="typed-text"></span><span class="typed-cursor">|</span></div>
+    <p class="hero-desc">
+      Undergraduate researcher at KUET specializing in NLP, machine learning, and bioinformatics. 
+     Passionate about building technology that solves real problems.
+    </p>
+    <div class="hero-btns">
+      <a href="#research" class="btn-primary">View Research</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+    <div class="hero-socials">
+      <a href="https://github.com/sumaiyashifa" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/sumaiya-khan-931532263/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://codeforces.com/profile/sumaiya_khan" target="_blank" title="Codeforces"><i class="fas fa-code"></i></a>
+      <a href="/cdn-cgi/l/email-protection#fd8e88909c94849c96959c93cec8cacfcfcccebd9a909c9491d39e9290" title="Email"><i class="fas fa-envelope"></i></a>
+    </div>
+  </div>
+    
+  <div class="hero-img-wrap fade-in" style="transition-delay:0.2s">
+    <div class="hero-img-ring">
+      <!-- Replace the div below with <img src="your-photo.jpg" alt="Sumaiya Khan"> -->
+        <img src="profile.png" alt="Sumaiya Khan" style="width:100%;height:auto;border-radius:50%;object-fit:cover;" />
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About Me</div>
+  <h2 class="section-title">Who I Am</h2>
+  <div class="about-grid fade-in">
+    <div class="about-text">
+      <p>
+        I'm a final-year <span>Computer Science & Engineering</span> undergraduate at Khulna University 
+        of Engineering & Technology (KUET), expected to graduate in 2026. My academic journey has been 
+        driven by a deep curiosity about how machines understand and generate language.
+      </p>
+      <p>
+        My thesis explores <span>Mixture of Experts (MoE) architectures for Grammatical Error Correction 
+        (GEC) in Bangla</span>, integrating optimization techniques to improve model efficiency on 
+        low-resource languages. I also actively contribute to research in NLP, materials science, and 
+        bioinformatics through collaborations.
+      </p>
+      <p>
+        Beyond research, I build full-stack applications — from a <span>Laravel-based job portal</span> 
+        to a <span>deep-learning powered plant disease detector</span> with a React Native frontend. 
+        I believe research and engineering are most powerful when they work together.
+      </p>
+      <p>
+        I received the <span>Dean's Award</span> in my 3rd year for academic excellence, and I'm 
+        currently exploring bioinformatics, particularly network-based analysis for autoimmune disease 
+        target discovery.
+      </p>
+    </div>
+    <div class="about-highlights">
+      <div class="highlight-card">
+        <div class="hc-label">Education</div>
+        <div class="hc-val">B.Sc. CSE — KUET</div>
+        <div class="hc-sub">Expected 2026 · CGPA 3.64/4.00</div>
+      </div>
+      <div class="highlight-card">
+        <div class="hc-label">Research Focus</div>
+        <div class="hc-val">NLP · Machine Learning</div>
+        <div class="hc-sub">Bangla GEC · MoE · Bioinformatics</div>
+      </div>
+      <div class="highlight-card">
+        <div class="hc-label">Recognition</div>
+        <div class="hc-val">Dean's Award</div>
+        <div class="hc-sub">KUET · 3rd Year (2023–24)</div>
+      </div>
+      <div class="highlight-card">
+        <div class="hc-label">Location</div>
+        <div class="hc-val">Khulna, Bangladesh</div>
+        <div class="hc-sub">Open to remote collaboration</div>
+      </div>
+      <div class="highlight-card">
+        <div class="hc-label">Currently Learning</div>
+        <div class="hc-val">Bioinformatics</div>
+        <div class="hc-sub">Transcriptomics · Drug repurposing · SLE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="section-label">Research</div>
+  <h2 class="section-title">Publications & Thesis</h2>
+
+  <!-- Thesis -->
+  <div class="thesis-block fade-in">
+    <div class="pub-type conference" style="margin-bottom:0.7rem">Ongoing Thesis</div>
+    <h3>Mixture of Experts for Grammatical Error Correction in Bangla with Optimization Techniques</h3>
+    <p style="margin-top:0.6rem">
+      Investigating MoE-based transformer architectures for low-resource Bangla NLP, with a focus on 
+      grammatical error correction. Applies optimization techniques to balance model capacity and 
+      computational efficiency on a Bangla GEC dataset.
+    </p>
+  </div>
+
+  <div class="research-grid">
+    <!-- Paper 1 -->
+    <div class="pub-card fade-in">
+      <div>
+        <div class="pub-type conference">Conference Paper</div>
+        <div class="pub-title">Accelerating Bangla NLP Tasks with Automatic Mixed Precision: Resource-Efficient Training Preserving Model Efficacy</div>
+        <div class="pub-authors">Mehrab Hossain Opi, <strong>Sumaiya Khan</strong>, et al.</div>
+        <div class="pub-venue">28th International Conference on Computer and Information Technology (ICCIT 2025)</div>
+      </div>
+      <span class="pub-badge accepted"><i class="fas fa-check-circle"></i> Accepted</span>
+    </div>
+    <!-- Paper 2 -->
+    <div class="pub-card fade-in">
+      <div>
+        <div class="pub-type conference">Conference Paper</div>
+        <div class="pub-title">Study of Two Temperatures on Lab-scale Synthesis and Characterization of Hexagonal Boron Nitride</div>
+        <div class="pub-authors">Sifat Kawsar, Abrar Rafid Siddique, Abdullah-Al-Noman, Sayem Kawsar, <strong>Sumaiya Khan</strong></div>
+        <div class="pub-venue">Chemical Engineering Collaboration · BUET</div>
+      </div>
+      <span class="pub-badge accepted"><i class="fas fa-check-circle"></i> Published</span>
+    </div>
+    <!-- Review Paper -->
+    <div class="pub-card fade-in">
+      <div>
+        <div class="pub-type review">Review Paper</div>
+        <div class="pub-title">Polymer Nanocomposites with Hybrid Nanoparticles — A Review</div>
+        <div class="pub-authors"><strong>Sumaiya Khan</strong> (AI/ML Section), Tasnim Alam Subah, Hasan Tasnim Salehin, et al.</div>
+        <div class="pub-venue">Collaborative work · Cross-disciplinary scientific writing</div>
+      </div>
+      <span class="pub-badge review"><i class="fas fa-clock"></i> Under Review</span>
+    </div>
+    <!-- Book Chapter -->
+    <div class="pub-card fade-in">
+      <div>
+        <div class="pub-type chapter">Book Chapter</div>
+        <div class="pub-title">Introduction to Wood Science and Technology: Structure, Chemistry, Innovations in Wood Formulations, Processing and Engineering</div>
+        <div class="pub-authors"><strong>Sumaiya Khan</strong>, Hasan Tasnim Salehin, Md. Fozle Rabbi, et al.</div>
+        <div class="pub-venue">Collaborative book chapter contribution</div>
+      </div>
+      <span class="pub-badge review"><i class="fas fa-clock"></i> Under Review</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Projects</div>
+  <h2 class="section-title">Selected Work</h2>
+  <div class="projects-grid">
+
+    <div class="project-card fade-in">
+      <div class="project-icon"><i class="fas fa-briefcase"></i></div>
+      <div class="project-tag-row">
+        <span class="project-tag">Laravel</span>
+        <span class="project-tag">PHP</span>
+        <span class="project-tag">MySQL</span>
+      </div>
+      <div class="project-title">Job Search System</div>
+      <p class="project-desc">Full-featured job portal enabling employers to post vacancies and candidates to search, apply, and track applications. Built with Laravel MVC, role-based access control, and search/filter functionality.</p>
+      <span class="project-type-badge">Team Project</span>
+      <a href="https://github.com/sumaiyashifa/web.git" target="_blank" class="project-link">View on GitHub <i class="fas fa-arrow-right"></i></a>
+    </div>
+
+    <div class="project-card fade-in">
+      <div class="project-icon"><i class="fas fa-leaf"></i></div>
+      <div class="project-tag-row">
+        <span class="project-tag">React Native</span>
+        <span class="project-tag">Node.js</span>
+        <span class="project-tag">MongoDB</span>
+        <span class="project-tag">Deep Learning</span>
+      </div>
+      <div class="project-title">Plant Disease Detection</div>
+      <p class="project-desc">Mobile application for real-time plant disease detection from images using a trained CNN model. React Native frontend, Node.js REST API backend, MongoDB for data management.</p>
+      <span class="project-type-badge">Team Project</span>
+      <a href="https://github.com/deyanuz/Plant-Disease-Detection.git" target="_blank" class="project-link">View on GitHub <i class="fas fa-arrow-right"></i></a>
+    </div>
+
+    <div class="project-card fade-in">
+      <div class="project-icon"><i class="fas fa-book"></i></div>
+      <div class="project-tag-row">
+        <span class="project-tag">Android</span>
+        <span class="project-tag">Java</span>
+        <span class="project-tag">Design Patterns</span>
+      </div>
+      <div class="project-title">Bookstore Android App</div>
+      <p class="project-desc">Android bookstore application with browse, search, cart, and purchase flow. Applied Observer, Adapter, and MVC design patterns for clean, maintainable architecture.</p>
+      <span class="project-type-badge">Team Project</span>
+      <a href="https://github.com/deyanuz/Bookstore" target="_blank" class="project-link">View on GitHub <i class="fas fa-arrow-right"></i></a>
+    </div>
+
+    <div class="project-card fade-in">
+      <div class="project-icon"><i class="fas fa-dna"></i></div>
+      <div class="project-tag-row">
+        <span class="project-tag">Python</span>
+        <span class="project-tag">Bioinformatics</span>
+        <span class="project-tag">Network Analysis</span>
+      </div>
+      <div class="project-title">SLE Therapeutic Target Discovery</div>
+      <p class="project-desc">Exploratory research project applying integrative transcriptomic and network-based analysis to identify therapeutic targets in Systemic Lupus Erythematosus. Applying optimization techniques for drug repurposing analysis.</p>
+      <span class="project-type-badge" style="color: var(--gold);">Ongoing </span>
+    </div>
+
+    <div class="project-card fade-in">
+      <div class="project-icon"><i class="fab fa-js"></i></div>
+      <div class="project-tag-row">
+        <span class="project-tag">JavaScript</span>
+        <span class="project-tag">Technical Writing</span>
+      </div>
+      <div class="project-title">JavaScript Tutorial Blog</div>
+      <p class="project-desc">Comprehensive JavaScript tutorial covering Variables, Operators, Data Types, Functions, Loops, Objects, and Error Handling. Written as a club contribution to Bit2Byte at KUET.</p>
+      <span class="project-type-badge">Bit2Byte Club · KUET</span>
+      <a href="https://github.com/sumaiyashifa/javascriptb.git" target="_blank" class="project-link">View on GitHub <i class="fas fa-arrow-right"></i></a>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Skills</div>
+  <h2 class="section-title">Technical Proficiency</h2>
+  <div class="skills-grid fade-in">
+    <div class="skills-col">
+      <h3>Programming & Frameworks</h3>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">Python</span><span class="skill-pct">85%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="85%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">PHP / Laravel</span><span class="skill-pct">80%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="80%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">React Native</span><span class="skill-pct">75%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="75%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">Node.js</span><span class="skill-pct">70%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="70%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">Java / Android</span><span class="skill-pct">70%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="70%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">C++</span><span class="skill-pct">65%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="65%"></div></div>
+      </div>
+    </div>
+    <div class="skills-col">
+      <h3>Research & Tools</h3>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">Machine Learning / Deep Learning</span><span class="skill-pct">78%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="78%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">NLP (Bangla)</span><span class="skill-pct">75%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="75%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">MongoDB / MySQL</span><span class="skill-pct">72%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="72%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">Git / GitHub</span><span class="skill-pct">80%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="80%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">Bioinformatics (Learning)</span><span class="skill-pct">35%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="35%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">Scientific Writing</span><span class="skill-pct">70%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-width="70%"></div></div>
+      </div>
+      <div style="margin-top:1.5rem">
+        <div class="hc-label" style="font-family:var(--mono);font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem">Other Tools & Concepts</div>
+        <div class="skill-tags-wrap">
+          <span class="skill-chip">REST APIs</span>
+          <span class="skill-chip">MVC Architecture</span>
+          <span class="skill-chip">Design Patterns</span>
+          <span class="skill-chip">Firebase</span>
+          <span class="skill-chip">Postman</span>
+          <span class="skill-chip">HTML / CSS</span>
+          <span class="skill-chip">Problem Solving</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXTRACURRICULARS -->
+<section id="extra">
+  <div class="section-label">Beyond Academics</div>
+  <h2 class="section-title">Activities & Leadership</h2>
+  <div class="extra-grid fade-in">
+    <div class="extra-card">
+      <div class="ec-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+      <h4>Senior Mentor for Girls</h4>
+      <div class="ec-org">Bit2Byte — Software R&D Community, KUET</div>
+      <div class="ec-period">Jan 2025 – Jan 2026 · 1 yr 1 mo</div>
+      <p>Mentored junior female students in software development and research skills, fostering an inclusive technical community at KUET.</p>
+    </div>
+    <div class="extra-card">
+      <div class="ec-icon"><i class="fas fa-star"></i></div>
+      <h4>Junior Executive Member</h4>
+      <div class="ec-org">BITFEST 2025 — KUET</div>
+      <div class="ec-period">Oct 2025 – Jan 2026 · 4 mos</div>
+      <p>Contributed to organizing one of KUET's flagship technical festivals, coordinating events and managing volunteer teams.</p>
+    </div>
+    <div class="extra-card">
+      <div class="ec-icon"><i class="fab fa-js-square"></i></div>
+      <h4>Technical Content Writer</h4>
+      <div class="ec-org">Bit2Byte Club, KUET</div>
+      <div class="ec-period">2024</div>
+      <p>Authored a comprehensive JavaScript tutorial blog for the club covering core concepts — Variables, Functions, Loops, Objects, Error Handling and more. <a href="https://github.com/sumaiyashifa/javascriptb.git" style="color:var(--gold)">View →</a></p>
+    </div>
+    <div class="extra-card">
+      <div class="ec-icon"><i class="fas fa-trophy"></i></div>
+      <h4>Dean's Award</h4>
+      <div class="ec-org">KUET · Academic Excellence</div>
+      <div class="ec-period">2023 – 2024 · 3rd Year</div>
+      <p>Awarded the Dean's Award for outstanding academic performance during the 3rd year of the B.Sc. program at KUET.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Contact</div>
+  <h2 class="section-title" style="text-align:center">Let's Connect</h2>
+  <div class="contact-wrap fade-in">
+    <p>I'm always open to research collaborations, project discussions, or just a good conversation about NLP and machine learning. Feel free to reach out!</p>
+    <div class="contact-links">
+      <a href="/cdn-cgi/l/email-protection#c9babca4a8a0b0a8a2a1a8a7fafcfefbfbf8fa89aea4a8a0a5e7aaa6a4" class="contact-link"><i class="fas fa-envelope"></i> Gmail</a>
+      <a href="https://www.linkedin.com/in/sumaiya-khan-931532263/" target="_blank" class="contact-link"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+      <a href="https://github.com/sumaiyashifa" target="_blank" class="contact-link"><i class="fab fa-github"></i> GitHub</a>
+      <a href="https://codeforces.com/profile/sumaiya_khan" target="_blank" class="contact-link"><i class="fas fa-code"></i> Codeforces</a>
+    </div>
+    <div class="contact-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" placeholder="Jane Doe">
+        </div>
+        <div class="form-group">
+          <label>Your Email</label>
+          <input type="email" placeholder="jane@example.com">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Subject</label>
+        <input type="text" placeholder="Research collaboration, project inquiry...">
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea rows="5" placeholder="Your message here..."></textarea>
+      </div>
+      <button class="form-submit" onclick="handleFormSubmit(event)">Send Message</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">Sumaiya Khan</div>
+  <div>© 2025 · CSE, KUET · Khulna, Bangladesh</div>
+  <div style="display:flex;gap:1rem">
+    <a href="https://github.com/sumaiyashifa" target="_blank" style="color:var(--muted);transition:color 0.3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'"><i class="fab fa-github"></i></a>
+    <a href="https://www.linkedin.com/in/sumaiya-khan-931532263/" target="_blank" style="color:var(--muted);transition:color 0.3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'"><i class="fab fa-linkedin-in"></i></a>
+    <a href="/cdn-cgi/l/email-protection#c6b5b3aba7afbfa7adaea7a8f5f3f1f4f4f7f586a1aba7afaae8a5a9ab" style="color:var(--muted);transition:color 0.3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'"><i class="fas fa-envelope"></i></a>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  /* ── Typed effect ── */
+  const roles = ["Researcher · NLP & ML", "Full-Stack Developer", "KUET · CSE · 2026", "Bioinformatics Explorer"];
+  let ri = 0, ci = 0, deleting = false;
+  const el = document.getElementById('typed-text');
+  function type() {
+    const cur = roles[ri];
+    if (!deleting) {
+      el.textContent = cur.slice(0, ++ci);
+      if (ci === cur.length) { deleting = true; setTimeout(type, 1800); return; }
+    } else {
+      el.textContent = cur.slice(0, --ci);
+      if (ci === 0) { deleting = false; ri = (ri + 1) % roles.length; }
+    }
+    setTimeout(type, deleting ? 45 : 80);
+  }
+  type();
+
+  /* ── Mobile nav ── */
+  function toggleMobileNav() {
+    document.getElementById('mobileNav').classList.toggle('open');
+  }
+
+  /* ── Scroll fade-in ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.transitionDelay = (i * 0.08) + 's';
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  /* ── Skill bar animation ── */
+  const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.skill-fill').forEach(bar => {
+          bar.style.width = bar.dataset.width;
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.skills-grid').forEach(el => skillObserver.observe(el));
+
+  /* ── Nav scroll effect ── */
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').style.background =
+      window.scrollY > 50 ? 'rgba(13,17,23,0.97)' : 'rgba(13,17,23,0.85)';
+  });
+
+  /* ── Contact form ── */
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const btn = e.target;
+    btn.textContent = '✓ Message Sent!';
+    btn.style.background = '#4ade80';
+    btn.style.color = '#0d1117';
+    setTimeout(() => {
+      btn.textContent = 'Send Message';
+      btn.style.background = 'var(--gold)';
+      btn.style.color = 'var(--bg)';
+    }, 3000);
+  }
+</script>
+
+<!-- ═══════════════════════════════════════════════════════
+     DATA.JSON PATCH
+     Works BOTH locally (file://) and on GitHub Pages.
+     Embedded data is used when fetch is blocked locally.
+     Admin panel updates EMBEDDED_DATA when you export.
+     ═══════════════════════════════════════════════════════ -->
+<script>
+(function applyDataPatch() {
+
+  // ── EMBEDDED DATA (always up to date after each admin export) ──
+  const EMBEDDED = {"hero":{"name":"Sumaiya Khan","tagline":"CSE · KUET · Bangladesh","photo":"profile.png","bio":"Undergraduate researcher at KUET specializing in NLP, machine learning, and bioinformatics. Passionate about building technology that solves real problems.","roles":["Researcher · NLP & ML","Full-Stack Developer","KUET · CSE · 2026","Bioinformatics Explorer"],"socials":{"github":"https://github.com/sumaiyashifa","linkedin":"https://www.linkedin.com/in/sumaiya-khan-931532263/","codeforces":"https://codeforces.com/profile/sumaiya_khan","email":"sumaiyakhan3572213@gmail.com"}},"about":{"paragraphs":["I'm a final-year <span>Computer Science &amp; Engineering</span> undergraduate at Khulna University of Engineering &amp; Technology (KUET), expected to graduate in 2026. My academic journey has been driven by a deep curiosity about how machines understand and generate language.","My thesis explores <span>Mixture of Experts (MoE) architectures for Grammatical Error Correction (GEC) in Bangla</span>, integrating optimization techniques to improve model efficiency on low-resource languages.","Beyond research, I build full-stack applications — from a <span>Laravel-based job portal</span> to a <span>deep-learning powered plant disease detector</span> with a React Native frontend.","I received the <span>Dean's Award</span> in my 3rd year for academic excellence, and I'm currently exploring bioinformatics, particularly network-based analysis for autoimmune disease target discovery."],"highlights":[{"label":"Education","value":"B.Sc. CSE — KUET","sub":"Expected 2026 · CGPA 3.64/4.00"},{"label":"Research Focus","value":"NLP · Machine Learning","sub":"Bangla GEC · MoE · Bioinformatics"},{"label":"Recognition","value":"Dean's Award","sub":"KUET · 3rd Year (2023-24)"},{"label":"Location","value":"Khulna, Bangladesh","sub":"Open to remote collaboration"},{"label":"Currently Learning","value":"Bioinformatics","sub":"Transcriptomics · Drug repurposing · SLE"}]},"thesis":{"title":"Mixture of Experts for Grammatical Error Correction in Bangla with Optimization Techniques","desc":"Investigating MoE-based transformer architectures for low-resource Bangla NLP, with a focus on grammatical error correction. Applies optimization techniques to balance model capacity and computational efficiency on a Bangla GEC dataset."},"publications":[{"id":1,"type":"conference","typeLabel":"Conference Paper","title":"Accelerating Bangla NLP Tasks with Automatic Mixed Precision: Resource-Efficient Training Preserving Model Efficacy","authors":"Mehrab Hossain Opi, Sumaiya Khan, et al.","myName":"Sumaiya Khan","venue":"28th International Conference on Computer and Information Technology (ICCIT 2025)","status":"accepted","statusLabel":"Accepted"},{"id":2,"type":"conference","typeLabel":"Conference Paper","title":"Study of Two Temperatures on Lab-scale Synthesis and Characterization of Hexagonal Boron Nitride","authors":"Sifat Kawsar, Abrar Rafid Siddique, Abdullah-Al-Noman, Sayem Kawsar, Sumaiya Khan","myName":"Sumaiya Khan","venue":"Chemical Engineering Collaboration · BUET","status":"accepted","statusLabel":"Published"},{"id":3,"type":"review","typeLabel":"Review Paper","title":"Polymer Nanocomposites with Hybrid Nanoparticles - A Review","authors":"Sumaiya Khan (AI/ML Section), Tasnim Alam Subah, Hasan Tasnim Salehin, et al.","myName":"Sumaiya Khan","venue":"Collaborative work · Cross-disciplinary scientific writing","status":"review","statusLabel":"Under Review"},{"id":4,"type":"chapter","typeLabel":"Book Chapter","title":"Introduction to Wood Science and Technology: Structure, Chemistry, Innovations in Wood Formulations, Processing and Engineering","authors":"Sumaiya Khan, Hasan Tasnim Salehin, Md. Fozle Rabbi, et al.","myName":"Sumaiya Khan","venue":"Collaborative book chapter contribution","status":"review","statusLabel":"Under Review"}],"projects":[{"id":1,"title":"Job Search System","desc":"Full-featured job portal enabling employers to post vacancies and candidates to search, apply, and track applications. Built with Laravel MVC, role-based access control, and search/filter functionality.","tags":["Laravel","PHP","MySQL"],"icon":"fa-briefcase","type":"Team Project","github":"https://github.com/sumaiyashifa/web.git","live":""},{"id":2,"title":"Plant Disease Detection","desc":"Mobile application for real-time plant disease detection from images using a trained CNN model. React Native frontend, Node.js REST API backend, MongoDB for data management.","tags":["React Native","Node.js","MongoDB","Deep Learning"],"icon":"fa-leaf","type":"Team Project","github":"https://github.com/deyanuz/Plant-Disease-Detection.git","live":""},{"id":3,"title":"Bookstore Android App","desc":"Android bookstore application with browse, search, cart, and purchase flow. Applied Observer, Adapter, and MVC design patterns for clean, maintainable architecture.","tags":["Android","Java","Design Patterns"],"icon":"fa-book","type":"Team Project","github":"https://github.com/deyanuz/Bookstore","live":""},{"id":4,"title":"SLE Therapeutic Target Discovery","desc":"Exploratory research project applying integrative transcriptomic and network-based analysis to identify therapeutic targets in Systemic Lupus Erythematosus.","tags":["Python","Bioinformatics","Network Analysis"],"icon":"fa-dna","type":"Ongoing","github":"","live":""},{"id":5,"title":"JavaScript Tutorial Blog","desc":"Comprehensive JavaScript tutorial covering Variables, Operators, Data Types, Functions, Loops, Objects, and Error Handling. Written as a club contribution to Bit2Byte at KUET.","tags":["JavaScript","Technical Writing"],"icon":"fa-js","type":"Bit2Byte Club · KUET","github":"https://github.com/sumaiyashifa/javascriptb.git","live":""}],"skills":[{"id":1,"name":"Python","percent":85,"category":"Programming & Frameworks"},{"id":2,"name":"PHP / Laravel","percent":80,"category":"Programming & Frameworks"},{"id":3,"name":"React Native","percent":75,"category":"Programming & Frameworks"},{"id":4,"name":"Node.js","percent":70,"category":"Programming & Frameworks"},{"id":5,"name":"Java / Android","percent":70,"category":"Programming & Frameworks"},{"id":6,"name":"C++","percent":65,"category":"Programming & Frameworks"},{"id":7,"name":"Machine Learning / Deep Learning","percent":78,"category":"Research & Tools"},{"id":8,"name":"NLP (Bangla)","percent":75,"category":"Research & Tools"},{"id":9,"name":"MongoDB / MySQL","percent":72,"category":"Research & Tools"},{"id":10,"name":"Git / GitHub","percent":80,"category":"Research & Tools"},{"id":11,"name":"Bioinformatics (Learning)","percent":35,"category":"Research & Tools"},{"id":12,"name":"Scientific Writing","percent":70,"category":"Research & Tools"}],"skillChips":["REST APIs","MVC Architecture","Design Patterns","Firebase","Postman","HTML / CSS","Problem Solving"],"extracurriculars":[{"id":1,"title":"Senior Mentor for Girls","org":"Bit2Byte - Software R&D Community, KUET","period":"Jan 2025 - Jan 2026 · 1 yr 1 mo","desc":"Mentored junior female students in software development and research skills, fostering an inclusive technical community at KUET.","icon":"fa-chalkboard-teacher"},{"id":2,"title":"Junior Executive Member","org":"BITFEST 2025 - KUET","period":"Oct 2025 - Jan 2026 · 4 mos","desc":"Contributed to organizing one of KUET's flagship technical festivals, coordinating events and managing volunteer teams.","icon":"fa-star"},{"id":3,"title":"Technical Content Writer","org":"Bit2Byte Club, KUET","period":"2024","desc":"Authored a comprehensive JavaScript tutorial blog for the club covering core concepts.","icon":"fa-pen-nib"},{"id":4,"title":"Dean's Award","org":"KUET · Academic Excellence","period":"2023-2024 · 3rd Year","desc":"Awarded the Dean's Award for outstanding academic performance during the 3rd year of the B.Sc. program at KUET.","icon":"fa-trophy"}]};
+
+  function patch(D) {
+    function boldName(text, name) {
+      if (!name) return text;
+      return text.replace(new RegExp('(' + name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'g'), '<strong>$1</strong>');
+    }
+
+    /* PUBLICATIONS */
+    if (D.publications && D.publications.length) {
+      const grid = document.querySelector('.research-grid');
+      if (grid) {
+        const tc = {conference:'conference',review:'review',chapter:'chapter',journal:'conference'};
+        const bc = {accepted:'accepted',review:'review'};
+        const bi = {accepted:'fa-check-circle',review:'fa-clock'};
+        grid.innerHTML = D.publications.map(p =>
+          '<div class="pub-card fade-in"><div>' +
+          '<div class="pub-type ' + (tc[p.type]||'conference') + '">' + (p.typeLabel||p.type) + '</div>' +
+          '<div class="pub-title">' + p.title + '</div>' +
+          '<div class="pub-authors">' + boldName(p.authors, p.myName) + '</div>' +
+          '<div class="pub-venue">' + p.venue + '</div></div>' +
+          '<span class="pub-badge ' + (bc[p.status]||'review') + '"><i class="fas ' + (bi[p.status]||'fa-clock') + '"></i> ' + (p.statusLabel||p.status) + '</span></div>'
+        ).join('');
+      }
+    }
+
+    /* THESIS */
+    if (D.thesis) {
+      const tb = document.querySelector('.thesis-block');
+      if (tb) {
+        const h3 = tb.querySelector('h3');
+        const pp = tb.querySelector('p');
+        if (h3 && D.thesis.title) h3.textContent = D.thesis.title;
+        if (pp && D.thesis.desc) pp.textContent = D.thesis.desc;
+      }
+    }
+
+    /* PROJECTS */
+    if (D.projects && D.projects.length) {
+      const grid = document.querySelector('.projects-grid');
+      if (grid) {
+        grid.innerHTML = D.projects.map(p =>
+          '<div class="project-card fade-in">' +
+          '<div class="project-icon"><i class="fas ' + (p.icon||'fa-folder') + '"></i></div>' +
+          '<div class="project-tag-row">' + (p.tags||[]).map(t => '<span class="project-tag">' + t + '</span>').join('') + '</div>' +
+          '<div class="project-title">' + p.title + '</div>' +
+          '<p class="project-desc">' + p.desc + '</p>' +
+          '<span class="project-type-badge"' + (p.type && p.type.toLowerCase().includes('ongoing') ? ' style="color:var(--gold)"' : '') + '>' + (p.type||'') + '</span>' +
+          (p.github ? '<a href="' + p.github + '" target="_blank" class="project-link">View on GitHub <i class="fas fa-arrow-right"></i></a>' : '') +
+          (p.live   ? '<a href="' + p.live   + '" target="_blank" class="project-link">Live Demo <i class="fas fa-external-link-alt"></i></a>' : '') +
+          '</div>'
+        ).join('');
+      }
+    }
+
+    /* SKILLS */
+    if (D.skills && D.skills.length) {
+      const prog = D.skills.filter(s => s.category === 'Programming & Frameworks');
+      const res  = D.skills.filter(s => s.category === 'Research & Tools');
+      const cols  = document.querySelectorAll('.skills-col');
+      function buildItems(arr) {
+        return arr.map(s =>
+          '<div class="skill-item">' +
+          '<div class="skill-row"><span class="skill-name">' + s.name + '</span><span class="skill-pct">' + s.percent + '%</span></div>' +
+          '<div class="skill-track"><div class="skill-fill" data-width="' + s.percent + '%"></div></div>' +
+          '</div>'
+        ).join('');
+      }
+      if (cols[0] && prog.length) {
+        const h3 = cols[0].querySelector('h3').outerHTML;
+        cols[0].innerHTML = h3 + buildItems(prog);
+      }
+      if (cols[1] && res.length) {
+        const h3 = cols[1].querySelector('h3').outerHTML;
+        const chips = (D.skillChips||[]);
+        cols[1].innerHTML = h3 + buildItems(res) +
+          (chips.length ? '<div style="margin-top:1.5rem"><div class="hc-label" style="font-family:var(--mono);font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem">Other Tools &amp; Concepts</div><div class="skill-tags-wrap">' +
+          chips.map(c => '<span class="skill-chip">' + c + '</span>').join('') + '</div></div>' : '');
+      }
+    }
+
+    /* ACTIVITIES */
+    if (D.extracurriculars && D.extracurriculars.length) {
+      const grid = document.querySelector('.extra-grid');
+      if (grid) {
+        grid.innerHTML = D.extracurriculars.map(e =>
+          '<div class="extra-card">' +
+          '<div class="ec-icon"><i class="fas ' + (e.icon||'fa-star') + '"></i></div>' +
+          '<h4>' + e.title + '</h4>' +
+          '<div class="ec-org">' + e.org + '</div>' +
+          '<div class="ec-period">' + e.period + '</div>' +
+          '<p>' + e.desc + '</p></div>'
+        ).join('');
+      }
+    }
+
+    /* ABOUT paragraphs */
+    if (D.about && D.about.paragraphs && D.about.paragraphs.length) {
+      const at = document.querySelector('.about-text');
+      if (at) at.innerHTML = D.about.paragraphs.map(p => '<p>' + p + '</p>').join('');
+    }
+
+    /* Re-init observers after DOM changes */
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    document.querySelectorAll('.skills-grid').forEach(el => skillObserver.observe(el));
+  }
+
+  // Try fetch first (works on server/XAMPP/GitHub Pages)
+  // If blocked (file://), use embedded data immediately
+  if (window.location.protocol === 'file:') {
+    patch(EMBEDDED);
+  } else {
+    fetch('data.json?v=' + Date.now())
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(data => patch(data))
+      .catch(() => patch(EMBEDDED));
+  }
+
+})();
+</script>
+
+</body>
+</html>

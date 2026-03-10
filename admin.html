@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin — Sumaiya Khan Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+:root{
+  --bg:#f0f2f8;--surface:#fff;--border:#e4e8f0;
+  --navy:#0f172a;--navy2:#1e293b;--navy3:#334155;
+  --gold:#b8860b;--gold-l:#fef9e7;
+  --blue:#3b82f6;--blue-l:#eff6ff;
+  --green:#10b981;--green-l:#ecfdf5;
+  --red:#ef4444;--red-l:#fef2f2;
+  --amber:#f59e0b;--amber-l:#fffbeb;
+  --text:#0f172a;--muted:#64748b;--muted2:#94a3b8;
+  --radius:10px;--shadow:0 1px 3px rgba(0,0,0,0.07),0 4px 16px rgba(0,0,0,0.04);--tr:0.2s ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;min-height:100vh}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:'Inter',sans-serif}
+input,textarea,select{font-family:'Inter',sans-serif}
+
+/* ── LOGIN ── */
+#loginScreen{position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#0f172a 0%,#1a3a5c 50%,#0f172a 100%);display:flex;align-items:center;justify-content:center}
+#loginScreen.hidden{display:none}
+.login-card{background:#fff;border-radius:18px;padding:2.8rem;width:400px;box-shadow:0 32px 80px rgba(0,0,0,0.4)}
+.login-brand{display:flex;align-items:center;gap:12px;margin-bottom:2rem}
+.login-avatar{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#c9a84c,#b8860b);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1.1rem}
+.login-brand-text .t1{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--navy)}
+.login-brand-text .t2{font-size:0.72rem;color:var(--muted);margin-top:1px}
+.login-card h2{font-size:1.3rem;font-weight:700;margin-bottom:0.3rem}
+.login-card p{font-size:0.82rem;color:var(--muted);margin-bottom:1.8rem}
+.fgroup{margin-bottom:1.1rem}
+.fgroup label{display:block;font-size:0.72rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:5px}
+.fgroup input{width:100%;padding:0.7rem 1rem;border:1.5px solid var(--border);border-radius:8px;font-size:0.9rem;outline:none;transition:border-color var(--tr);color:var(--text)}
+.fgroup input:focus{border-color:var(--blue)}
+.login-btn{width:100%;padding:0.8rem;background:var(--navy);color:#fff;border:none;border-radius:8px;font-size:0.9rem;font-weight:600;transition:background var(--tr);margin-top:0.5rem}
+.login-btn:hover{background:var(--navy2)}
+.login-err{font-size:0.8rem;color:var(--red);text-align:center;min-height:1.2rem;margin-top:0.6rem}
+.login-hint{font-size:0.73rem;color:var(--muted2);text-align:center;margin-top:1rem}
+
+/* ── SHELL ── */
+#app{display:none;min-height:100vh}
+#app.visible{display:flex}
+
+/* ── SIDEBAR ── */
+#sidebar{width:220px;min-height:100vh;background:var(--navy);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform var(--tr)}
+.sb-top{padding:1.4rem 1.2rem 0.8rem;border-bottom:1px solid rgba(255,255,255,0.07)}
+.sb-brand{display:flex;align-items:center;gap:10px}
+.sb-icon{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,#c9a84c,#b8860b);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:0.85rem;flex-shrink:0}
+.sb-title{font-family:'Playfair Display',serif;color:#fff;font-size:0.95rem}
+.sb-sub{font-size:0.62rem;color:rgba(255,255,255,0.3);letter-spacing:1px;text-transform:uppercase}
+.sb-nav{flex:1;padding:0.8rem 0;overflow-y:auto}
+.sb-group-label{font-size:0.58rem;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.22);padding:0.8rem 1.2rem 0.3rem}
+.sb-item{display:flex;align-items:center;gap:10px;padding:0.6rem 1.2rem;color:rgba(255,255,255,0.45);font-size:0.81rem;font-weight:500;cursor:pointer;transition:all var(--tr);border-left:3px solid transparent;user-select:none}
+.sb-item i{width:15px;text-align:center;font-size:0.8rem;flex-shrink:0}
+.sb-item:hover{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.8)}
+.sb-item.active{background:rgba(255,255,255,0.1);color:#fff;border-left-color:#c9a84c}
+.sb-bottom{padding:1rem 1.2rem;border-top:1px solid rgba(255,255,255,0.07)}
+.sb-user{display:flex;align-items:center;gap:9px;margin-bottom:0.8rem}
+.sb-uavatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#c9a84c,#b8860b);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.72rem;flex-shrink:0}
+.sb-uname{font-size:0.8rem;color:#fff;font-weight:500}
+.sb-urole{font-size:0.65rem;color:rgba(255,255,255,0.3)}
+.sb-logout{width:100%;padding:0.45rem;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);border-radius:6px;color:#f87171;font-size:0.73rem;font-weight:500;transition:background var(--tr)}
+.sb-logout:hover{background:rgba(239,68,68,0.2)}
+
+/* ── MAIN ── */
+#main{margin-left:220px;flex:1;display:flex;flex-direction:column;min-height:100vh}
+.topbar{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);padding:0 1.8rem;height:56px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 0 var(--border)}
+.topbar-left{display:flex;align-items:center;gap:0.8rem}
+.topbar-title{font-size:0.95rem;font-weight:600}
+.topbar-sub{font-size:0.75rem;color:var(--muted)}
+.topbar-right{display:flex;align-items:center;gap:0.8rem}
+.tb-pill{display:flex;align-items:center;gap:6px;padding:0.4rem 1rem;border-radius:99px;font-size:0.75rem;font-weight:500;transition:all var(--tr);border:1.5px solid var(--border);color:var(--muted)}
+.tb-pill:hover{border-color:var(--blue);color:var(--blue)}
+.tb-save{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tb-save:hover{background:var(--navy2);border-color:var(--navy2);color:#fff}
+.tb-save.saved{background:var(--green);border-color:var(--green)}
+.tb-save.saved:hover{background:#059669;border-color:#059669}
+
+/* ── CONTENT ── */
+.content{padding:1.8rem;flex:1}
+.page{display:none}.page.active{display:block}
+
+/* ── DASHBOARD STATS ── */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.8rem}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem 1.4rem;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow)}
+.stat-left .s-num{font-size:1.8rem;font-weight:700;line-height:1;color:var(--text)}
+.stat-left .s-label{font-size:0.72rem;color:var(--muted);margin-top:3px;font-weight:500}
+.stat-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.si-gold{background:var(--gold-l);color:var(--gold)}
+.si-blue{background:var(--blue-l);color:var(--blue)}
+.si-green{background:var(--green-l);color:var(--green)}
+.si-amber{background:var(--amber-l);color:var(--amber)}
+
+/* ── CARD ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:1.5rem;overflow:hidden}
+.card-header{padding:1.1rem 1.4rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-header-left h3{font-size:0.88rem;font-weight:600}
+.card-header-left p{font-size:0.73rem;color:var(--muted);margin-top:2px}
+.card-body{padding:1.4rem}
+
+/* ── FORM ── */
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:1rem}
+.fg label{font-size:0.7rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.7px}
+.fg input,.fg textarea,.fg select{padding:0.62rem 0.9rem;border:1.5px solid var(--border);border-radius:8px;font-size:0.87rem;color:var(--text);outline:none;transition:border-color var(--tr);background:#fff}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--blue)}
+.fg textarea{resize:vertical;min-height:80px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+.full{grid-column:1/-1}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:0.5rem 1.1rem;border-radius:8px;font-size:0.78rem;font-weight:600;border:none;transition:all var(--tr);cursor:pointer}
+.btn-dark{background:var(--navy);color:#fff}.btn-dark:hover{background:var(--navy2)}
+.btn-blue{background:var(--blue-l);color:var(--blue)}.btn-blue:hover{background:#dbeafe}
+.btn-red{background:var(--red-l);color:var(--red)}.btn-red:hover{background:#fee2e2}
+.btn-green{background:var(--green-l);color:var(--green)}.btn-green:hover{background:#d1fae5}
+.btn-gold{background:var(--gold-l);color:var(--gold)}.btn-gold:hover{background:#fef3c7}
+.btn-ghost{background:transparent;color:var(--muted);border:1.5px solid var(--border)}.btn-ghost:hover{border-color:var(--text);color:var(--text)}
+.btn-sm{padding:0.35rem 0.8rem;font-size:0.73rem}
+
+/* ── TABLE ── */
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);padding:0.65rem 1rem;text-align:left;border-bottom:1px solid var(--border);background:var(--bg);white-space:nowrap}
+.tbl td{padding:0.8rem 1rem;border-bottom:1px solid var(--border);font-size:0.84rem;vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:#f8f9fc}
+.td-actions{display:flex;gap:6px;white-space:nowrap}
+
+/* ── BADGE ── */
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:0.67rem;font-weight:600;padding:3px 9px;border-radius:99px;text-transform:uppercase;letter-spacing:0.4px;white-space:nowrap}
+.b-gold{background:var(--gold-l);color:var(--gold)}
+.b-blue{background:var(--blue-l);color:var(--blue)}
+.b-green{background:var(--green-l);color:var(--green)}
+.b-amber{background:var(--amber-l);color:var(--amber)}
+.b-red{background:var(--red-l);color:var(--red)}
+.b-gray{background:#f1f5f9;color:var(--muted)}
+
+/* ── SKILL BAR ── */
+.sbar-wrap{width:100px}
+.sbar-track{height:5px;background:#e2e8f0;border-radius:99px;overflow:hidden}
+.sbar-fill{height:100%;background:linear-gradient(90deg,#c9a84c,#b8860b);border-radius:99px}
+
+/* ── MODAL ── */
+.overlay{position:fixed;inset:0;background:rgba(15,23,42,0.5);z-index:500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(2px)}
+.overlay.open{display:flex}
+.modal{background:#fff;border-radius:14px;width:560px;max-width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 24px 60px rgba(0,0,0,0.2)}
+.modal-header{padding:1.3rem 1.6rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#fff;z-index:1}
+.modal-header h3{font-size:0.95rem;font-weight:600}
+.modal-close{width:30px;height:30px;border:none;background:var(--bg);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.85rem;cursor:pointer;transition:background var(--tr)}
+.modal-close:hover{background:var(--red-l);color:var(--red)}
+.modal-body{padding:1.6rem}
+.modal-footer{padding:1rem 1.6rem;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:0.6rem;background:#fafafa}
+
+/* ── RANGE INPUT ── */
+input[type=range]{-webkit-appearance:none;width:100%;height:5px;border-radius:99px;background:#e2e8f0;outline:none;border:none;padding:0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--navy);cursor:pointer;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.2)}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;display:flex;flex-direction:column;gap:0.5rem}
+.toast-item{background:var(--navy);color:#fff;padding:0.75rem 1.2rem;border-radius:10px;font-size:0.83rem;font-weight:500;display:flex;align-items:center;gap:8px;animation:slideIn 0.3s ease;box-shadow:0 8px 24px rgba(0,0,0,0.2)}
+.toast-item.success{background:#065f46;border-left:3px solid var(--green)}
+.toast-item.error{background:#7f1d1d;border-left:3px solid var(--red)}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* ── TAG INPUT ── */
+.tag-input-wrap{display:flex;flex-wrap:wrap;gap:6px;padding:0.5rem;border:1.5px solid var(--border);border-radius:8px;cursor:text;min-height:42px;align-items:center;transition:border-color var(--tr)}
+.tag-input-wrap:focus-within{border-color:var(--blue)}
+.tag-chip{display:inline-flex;align-items:center;gap:5px;background:var(--blue-l);color:var(--blue);border-radius:99px;padding:2px 10px;font-size:0.73rem;font-weight:500}
+.tag-chip button{background:none;border:none;color:var(--blue);cursor:pointer;font-size:0.7rem;padding:0;line-height:1;display:flex;align-items:center}
+.tag-input{border:none;outline:none;font-size:0.84rem;font-family:'Inter',sans-serif;min-width:80px;flex:1;background:transparent}
+
+/* ── HERO PHOTO PREVIEW ── */
+.photo-preview{width:100px;height:100px;border-radius:50%;border:2px solid var(--border);object-fit:cover;display:block}
+.photo-placeholder{width:100px;height:100px;border-radius:50%;border:2px dashed var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--muted2);font-size:1.5rem}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  #sidebar{transform:translateX(-100%)}
+  #sidebar.open{transform:translateX(0)}
+  #main{margin-left:0}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .grid2,.grid3{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ── LOGIN ── -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-brand">
+      <div class="login-avatar">SK</div>
+      <div class="login-brand-text">
+        <div class="t1">Portfolio Admin</div>
+        <div class="t2">Sumaiya Khan</div>
+      </div>
+    </div>
+    <h2>Welcome back</h2>
+    <p>Sign in to manage your portfolio content</p>
+    <div class="fgroup">
+      <label>Username</label>
+      <input type="text" id="loginUser" placeholder="admin" autocomplete="off"/>
+    </div>
+    <div class="fgroup">
+      <label>Password</label>
+      <input type="password" id="loginPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/>
+    </div>
+    <button class="login-btn" onclick="doLogin()">Sign In</button>
+    <div class="login-err" id="loginErr"></div>
+    <div class="login-hint">Default: admin / admin123</div>
+  </div>
+</div>
+
+<!-- ── APP SHELL ── -->
+<div id="app">
+  <!-- SIDEBAR -->
+  <nav id="sidebar">
+    <div class="sb-top">
+      <div class="sb-brand">
+        <div class="sb-icon">SK</div>
+        <div>
+          <div class="sb-title">Admin Panel</div>
+          <div class="sb-sub">Portfolio CMS</div>
+        </div>
+      </div>
+    </div>
+    <div class="sb-nav">
+      <div class="sb-group-label">Overview</div>
+      <div class="sb-item active" data-page="dashboard"><i class="fas fa-gauge-high"></i> Dashboard</div>
+      <div class="sb-group-label">Content</div>
+      <div class="sb-item" data-page="hero"><i class="fas fa-user-circle"></i> Hero & Bio</div>
+      <div class="sb-item" data-page="research"><i class="fas fa-flask"></i> Research</div>
+      <div class="sb-item" data-page="projects"><i class="fas fa-folder-open"></i> Projects</div>
+      <div class="sb-item" data-page="skills"><i class="fas fa-chart-bar"></i> Skills</div>
+      <div class="sb-item" data-page="extra"><i class="fas fa-star"></i> Activities</div>
+      <div class="sb-group-label">Deploy</div>
+      <div class="sb-item" data-page="export"><i class="fas fa-file-export"></i> Export & Deploy</div>
+    </div>
+    <div class="sb-bottom">
+      <div class="sb-user">
+        <div class="sb-uavatar">SK</div>
+        <div><div class="sb-uname">Sumaiya Khan</div><div class="sb-urole">Administrator</div></div>
+      </div>
+      <button class="sb-logout" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main id="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <div>
+          <div class="topbar-title" id="topbarTitle">Dashboard</div>
+          <div class="topbar-sub" id="topbarSub">Overview of your portfolio</div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <a href="index.html" target="_blank" class="tb-pill"><i class="fas fa-eye"></i> Preview Site</a>
+        <button class="tb-pill tb-save" id="saveBtn" onclick="saveData()"><i class="fas fa-save"></i> Save Changes</button>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ── DASHBOARD ── -->
+      <div class="page active" id="page-dashboard">
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-left"><div class="s-num" id="stat-pubs">0</div><div class="s-label">Publications</div></div>
+            <div class="stat-icon si-gold"><i class="fas fa-file-alt"></i></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-left"><div class="s-num" id="stat-proj">0</div><div class="s-label">Projects</div></div>
+            <div class="stat-icon si-blue"><i class="fas fa-folder"></i></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-left"><div class="s-num" id="stat-skills">0</div><div class="s-label">Skills</div></div>
+            <div class="stat-icon si-green"><i class="fas fa-code"></i></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-left"><div class="s-num" id="stat-extra">0</div><div class="s-label">Activities</div></div>
+            <div class="stat-icon si-amber"><i class="fas fa-star"></i></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-header-left"><h3>Quick Access</h3><p>Jump to any section to edit</p></div></div>
+          <div class="card-body" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem">
+            <button class="btn btn-ghost" style="justify-content:flex-start;padding:1rem" onclick="goPage('hero')"><i class="fas fa-user-circle" style="color:var(--gold)"></i> Hero & Bio</button>
+            <button class="btn btn-ghost" style="justify-content:flex-start;padding:1rem" onclick="goPage('research')"><i class="fas fa-flask" style="color:var(--blue)"></i> Research</button>
+            <button class="btn btn-ghost" style="justify-content:flex-start;padding:1rem" onclick="goPage('projects')"><i class="fas fa-folder-open" style="color:var(--green)"></i> Projects</button>
+            <button class="btn btn-ghost" style="justify-content:flex-start;padding:1rem" onclick="goPage('skills')"><i class="fas fa-chart-bar" style="color:var(--amber)"></i> Skills</button>
+            <button class="btn btn-ghost" style="justify-content:flex-start;padding:1rem" onclick="goPage('extra')"><i class="fas fa-star" style="color:var(--red)"></i> Activities</button>
+            <button class="btn btn-ghost" style="justify-content:flex-start;padding:1rem" onclick="goPage('export')"><i class="fas fa-file-export" style="color:var(--muted)"></i> Export & Deploy</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-header-left"><h3>How This Works</h3><p>Your 3-step workflow</p></div></div>
+          <div class="card-body" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem">
+            <div style="text-align:center;padding:1rem">
+              <div style="width:44px;height:44px;border-radius:50%;background:var(--blue-l);color:var(--blue);display:flex;align-items:center;justify-content:center;margin:0 auto 0.8rem;font-weight:700">1</div>
+              <div style="font-weight:600;font-size:0.85rem;margin-bottom:0.4rem">Edit Content</div>
+              <div style="font-size:0.78rem;color:var(--muted)">Use the sections on the left to edit your skills, projects, publications, and more.</div>
+            </div>
+            <div style="text-align:center;padding:1rem">
+              <div style="width:44px;height:44px;border-radius:50%;background:var(--green-l);color:var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 0.8rem;font-weight:700">2</div>
+              <div style="font-weight:600;font-size:0.85rem;margin-bottom:0.4rem">Save & Export</div>
+              <div style="font-size:0.78rem;color:var(--muted)">Click Save Changes to update data.json, then go to Export to download it.</div>
+            </div>
+            <div style="text-align:center;padding:1rem">
+              <div style="width:44px;height:44px;border-radius:50%;background:var(--gold-l);color:var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 0.8rem;font-weight:700">3</div>
+              <div style="font-weight:600;font-size:0.85rem;margin-bottom:0.4rem">Push to GitHub</div>
+              <div style="font-size:0.78rem;color:var(--muted)">Replace data.json in your GitHub repo. Your live site at sumaiyakhan.github.io updates automatically.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── HERO ── -->
+      <div class="page" id="page-hero">
+        <div class="card">
+          <div class="card-header"><div class="card-header-left"><h3>Hero Section</h3><p>Name, photo, bio, typed roles, social links</p></div></div>
+          <div class="card-body">
+            <div class="grid2">
+              <div class="fg"><label>Full Name</label><input id="h-name" type="text"/></div>
+              <div class="fg"><label>Tagline (e.g. CSE · KUET)</label><input id="h-tagline" type="text"/></div>
+              <div class="fg full"><label>Short Bio</label><textarea id="h-bio" rows="3"></textarea></div>
+              <div class="fg"><label>Photo filename (e.g. profile.png)</label><input id="h-photo" type="text" oninput="updatePhotoPreview()"/></div>
+              <div class="fg" style="justify-content:center;align-items:center">
+                <label>Preview</label>
+                <img id="photoPreview" class="photo-preview" src="" alt="" style="display:none"/>
+                <div id="photoPlaceholder" class="photo-placeholder"><i class="fas fa-user"></i></div>
+              </div>
+            </div>
+            <hr style="border:none;border-top:1px solid var(--border);margin:1.2rem 0"/>
+            <div class="fg"><label>Typed Roles (one per line)</label><textarea id="h-roles" rows="5" placeholder="Researcher · NLP & ML&#10;Full-Stack Developer&#10;KUET · CSE · 2026"></textarea></div>
+            <hr style="border:none;border-top:1px solid var(--border);margin:1.2rem 0"/>
+            <div style="font-size:0.7rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:0.8rem">Social Links</div>
+            <div class="grid2">
+              <div class="fg"><label><i class="fab fa-github"></i> GitHub URL</label><input id="h-github" type="text"/></div>
+              <div class="fg"><label><i class="fab fa-linkedin"></i> LinkedIn URL</label><input id="h-linkedin" type="text"/></div>
+              <div class="fg"><label><i class="fas fa-code"></i> Codeforces URL</label><input id="h-codeforces" type="text"/></div>
+              <div class="fg"><label><i class="fas fa-envelope"></i> Email</label><input id="h-email" type="text"/></div>
+            </div>
+            <hr style="border:none;border-top:1px solid var(--border);margin:1.2rem 0"/>
+            <div style="font-size:0.7rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:0.8rem">About Section</div>
+            <div class="fg"><label>About Paragraphs (one per line — use &lt;span&gt; for gold highlights)</label><textarea id="h-paragraphs" rows="8"></textarea></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── RESEARCH ── -->
+      <div class="page" id="page-research">
+        <div class="card">
+          <div class="card-header"><div class="card-header-left"><h3>Thesis</h3><p>Your ongoing thesis details</p></div></div>
+          <div class="card-body">
+            <div class="fg"><label>Thesis Title</label><input id="thesis-title" type="text"/></div>
+            <div class="fg"><label>Thesis Description</label><textarea id="thesis-desc" rows="3"></textarea></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-header-left"><h3>Publications</h3><p>Conference papers, review articles, book chapters</p></div>
+            <button class="btn btn-dark btn-sm" onclick="openPubModal()"><i class="fas fa-plus"></i> Add Publication</button>
+          </div>
+          <div class="card-body" style="padding:0">
+            <table class="tbl">
+              <thead><tr><th>Type</th><th>Title</th><th>Status</th><th style="width:100px">Actions</th></tr></thead>
+              <tbody id="pub-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PROJECTS ── -->
+      <div class="page" id="page-projects">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-header-left"><h3>Projects</h3><p>Your portfolio projects</p></div>
+            <button class="btn btn-dark btn-sm" onclick="openProjModal()"><i class="fas fa-plus"></i> Add Project</button>
+          </div>
+          <div class="card-body" style="padding:0">
+            <table class="tbl">
+              <thead><tr><th>Title</th><th>Type</th><th>Tags</th><th>GitHub</th><th style="width:100px">Actions</th></tr></thead>
+              <tbody id="proj-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SKILLS ── -->
+      <div class="page" id="page-skills">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-header-left"><h3>Skills</h3><p>Progress bar skills with percentage</p></div>
+            <button class="btn btn-dark btn-sm" onclick="openSkillModal()"><i class="fas fa-plus"></i> Add Skill</button>
+          </div>
+          <div class="card-body" style="padding:0">
+            <table class="tbl">
+              <thead><tr><th>Skill</th><th>Category</th><th>Level</th><th style="width:100px">Actions</th></tr></thead>
+              <tbody id="skill-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-header-left"><h3>Skill Chips</h3><p>Tool/concept tags shown below the skill bars</p></div></div>
+          <div class="card-body">
+            <div class="fg"><label>Add chip (press Enter)</label><div class="tag-input-wrap" id="chipWrap" onclick="document.getElementById('chipInput').focus()"></div></div>
+            <input type="text" id="chipInput" class="tag-input" style="border:none;outline:none;width:100%;padding:0.4rem;font-size:0.84rem" placeholder="Type and press Enter..." onkeydown="handleChipKey(event)"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ACTIVITIES ── -->
+      <div class="page" id="page-extra">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-header-left"><h3>Activities & Leadership</h3><p>Clubs, awards, extracurriculars</p></div>
+            <button class="btn btn-dark btn-sm" onclick="openExtraModal()"><i class="fas fa-plus"></i> Add Activity</button>
+          </div>
+          <div class="card-body" style="padding:0">
+            <table class="tbl">
+              <thead><tr><th>Title</th><th>Organisation</th><th>Period</th><th style="width:100px">Actions</th></tr></thead>
+              <tbody id="extra-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── EXPORT ── -->
+      <div class="page" id="page-export">
+        <div class="card">
+          <div class="card-header"><div class="card-header-left"><h3>Export data.json</h3><p>Download the updated data file and push to GitHub</p></div></div>
+          <div class="card-body">
+            <p style="color:var(--muted);font-size:0.88rem;margin-bottom:1.5rem;line-height:1.8">
+              After editing your content, download <strong>data.json</strong> and replace the file in your GitHub repository. Your public portfolio at <strong>sumaiyakhan.github.io</strong> will automatically update.
+            </p>
+            <button class="btn btn-dark" onclick="exportJSON()"><i class="fas fa-download"></i> Download data.json</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-header-left"><h3>GitHub Pages Setup Guide</h3><p>One-time setup to get your site live</p></div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:1rem">
+            <div style="display:flex;gap:1rem;align-items:flex-start">
+              <div style="width:28px;height:28px;border-radius:50%;background:var(--blue-l);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:700;flex-shrink:0">1</div>
+              <div><div style="font-weight:600;font-size:0.85rem">Create a GitHub repo named <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:0.8rem">sumaiyashifa.github.io</code></div><div style="font-size:0.78rem;color:var(--muted);margin-top:3px">This exact name makes GitHub Pages serve it at your personal URL.</div></div>
+            </div>
+            <div style="display:flex;gap:1rem;align-items:flex-start">
+              <div style="width:28px;height:28px;border-radius:50%;background:var(--blue-l);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:700;flex-shrink:0">2</div>
+              <div><div style="font-weight:600;font-size:0.85rem">Upload these files to the repo</div><div style="font-size:0.78rem;color:var(--muted);margin-top:3px"><code style="background:var(--bg);padding:2px 6px;border-radius:4px">index.html</code>, <code style="background:var(--bg);padding:2px 6px;border-radius:4px">data.json</code>, <code style="background:var(--bg);padding:2px 6px;border-radius:4px">profile.png</code> (your photo)</div></div>
+            </div>
+            <div style="display:flex;gap:1rem;align-items:flex-start">
+              <div style="width:28px;height:28px;border-radius:50%;background:var(--blue-l);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:700;flex-shrink:0">3</div>
+              <div><div style="font-weight:600;font-size:0.85rem">Enable GitHub Pages in repo Settings → Pages</div><div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Set source to <em>main branch / root</em>. Your site goes live at <strong>sumaiyashifa.github.io</strong></div></div>
+            </div>
+            <div style="display:flex;gap:1rem;align-items:flex-start">
+              <div style="width:28px;height:28px;border-radius:50%;background:var(--green-l);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:700;flex-shrink:0">4</div>
+              <div><div style="font-weight:600;font-size:0.85rem">Future updates: just replace data.json</div><div style="font-size:0.78rem;color:var(--muted);margin-top:3px">Edit content in this admin panel → Export data.json → Push to GitHub. Done!</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </main>
+</div><!-- /app -->
+
+<!-- ── MODALS ── -->
+<!-- Publication Modal -->
+<div class="overlay" id="pubOverlay">
+  <div class="modal">
+    <div class="modal-header"><h3 id="pubModalTitle">Add Publication</h3><button class="modal-close" onclick="closeModal('pubOverlay')"><i class="fas fa-times"></i></button></div>
+    <div class="modal-body">
+      <input type="hidden" id="pub-edit-id"/>
+      <div class="grid2">
+        <div class="fg"><label>Type</label>
+          <select id="pub-type">
+            <option value="conference">Conference Paper</option>
+            <option value="review">Review Paper</option>
+            <option value="chapter">Book Chapter</option>
+            <option value="journal">Journal Article</option>
+          </select>
+        </div>
+        <div class="fg"><label>Status</label>
+          <select id="pub-status">
+            <option value="accepted">Accepted / Published</option>
+            <option value="review">Under Review</option>
+          </select>
+        </div>
+        <div class="fg full"><label>Paper Title</label><input id="pub-title" type="text" placeholder="Full title of the paper"/></div>
+        <div class="fg full"><label>Authors (your name exactly as it should be bolded)</label><input id="pub-authors" type="text" placeholder="Author One, Author Two, Author Three"/></div>
+        <div class="fg"><label>Your Name (for bolding)</label><input id="pub-myname" type="text" placeholder="Sumaiya Khan"/></div>
+        <div class="fg"><label>Status Label</label><input id="pub-statuslabel" type="text" placeholder="Accepted / Under Review / Published"/></div>
+        <div class="fg full"><label>Venue / Journal / Conference</label><input id="pub-venue" type="text" placeholder="Conference name, year"/></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" onclick="closeModal('pubOverlay')">Cancel</button>
+      <button class="btn btn-dark btn-sm" onclick="savePub()">Save Publication</button>
+    </div>
+  </div>
+</div>
+
+<!-- Project Modal -->
+<div class="overlay" id="projOverlay">
+  <div class="modal">
+    <div class="modal-header"><h3 id="projModalTitle">Add Project</h3><button class="modal-close" onclick="closeModal('projOverlay')"><i class="fas fa-times"></i></button></div>
+    <div class="modal-body">
+      <input type="hidden" id="proj-edit-id"/>
+      <div class="grid2">
+        <div class="fg full"><label>Project Title</label><input id="proj-title" type="text"/></div>
+        <div class="fg full"><label>Description</label><textarea id="proj-desc" rows="3"></textarea></div>
+        <div class="fg"><label>Project Type / Badge</label><input id="proj-type" type="text" placeholder="Team Project / Ongoing / Solo"/></div>
+        <div class="fg"><label>Icon (FontAwesome class)</label><input id="proj-icon" type="text" placeholder="fa-briefcase"/></div>
+        <div class="fg"><label>GitHub URL</label><input id="proj-github" type="text" placeholder="https://github.com/..."/></div>
+        <div class="fg"><label>Live Demo URL (optional)</label><input id="proj-live" type="text" placeholder="https://..."/></div>
+        <div class="fg full"><label>Tags (comma-separated)</label><input id="proj-tags" type="text" placeholder="React Native, Node.js, MongoDB"/></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" onclick="closeModal('projOverlay')">Cancel</button>
+      <button class="btn btn-dark btn-sm" onclick="saveProj()">Save Project</button>
+    </div>
+  </div>
+</div>
+
+<!-- Skill Modal -->
+<div class="overlay" id="skillOverlay">
+  <div class="modal">
+    <div class="modal-header"><h3 id="skillModalTitle">Add Skill</h3><button class="modal-close" onclick="closeModal('skillOverlay')"><i class="fas fa-times"></i></button></div>
+    <div class="modal-body">
+      <input type="hidden" id="skill-edit-id"/>
+      <div class="grid2">
+        <div class="fg full"><label>Skill Name</label><input id="skill-name" type="text" placeholder="Python"/></div>
+        <div class="fg"><label>Category</label>
+          <select id="skill-cat">
+            <option value="Programming & Frameworks">Programming & Frameworks</option>
+            <option value="Research & Tools">Research & Tools</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Proficiency: <span id="skill-pct-label">75</span>%</label>
+          <input type="range" id="skill-percent" min="5" max="100" value="75" oninput="document.getElementById('skill-pct-label').textContent=this.value"/>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" onclick="closeModal('skillOverlay')">Cancel</button>
+      <button class="btn btn-dark btn-sm" onclick="saveSkill()">Save Skill</button>
+    </div>
+  </div>
+</div>
+
+<!-- Activity Modal -->
+<div class="overlay" id="extraOverlay">
+  <div class="modal">
+    <div class="modal-header"><h3 id="extraModalTitle">Add Activity</h3><button class="modal-close" onclick="closeModal('extraOverlay')"><i class="fas fa-times"></i></button></div>
+    <div class="modal-body">
+      <input type="hidden" id="extra-edit-id"/>
+      <div class="fg"><label>Title</label><input id="extra-title" type="text" placeholder="Senior Mentor for Girls"/></div>
+      <div class="grid2">
+        <div class="fg"><label>Organisation</label><input id="extra-org" type="text" placeholder="Bit2Byte, KUET"/></div>
+        <div class="fg"><label>Period</label><input id="extra-period" type="text" placeholder="Jan 2025 - Jan 2026"/></div>
+      </div>
+      <div class="fg"><label>Description</label><textarea id="extra-desc" rows="3"></textarea></div>
+      <div class="fg"><label>Icon (FontAwesome class)</label><input id="extra-icon" type="text" placeholder="fa-chalkboard-teacher"/></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" onclick="closeModal('extraOverlay')">Cancel</button>
+      <button class="btn btn-dark btn-sm" onclick="saveExtra()">Save Activity</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ── AUTH ──
+const CREDS = { user:'admin', pass:'admin123' };
+function doLogin(){
+  const u=document.getElementById('loginUser').value.trim();
+  const p=document.getElementById('loginPass').value;
+  if(u===CREDS.user && p===CREDS.pass){
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('app').classList.add('visible');
+    loadData();
+  } else {
+    document.getElementById('loginErr').textContent='Incorrect username or password.';
+    setTimeout(()=>document.getElementById('loginErr').textContent='',2500);
+  }
+}
+function doLogout(){
+  document.getElementById('loginScreen').classList.remove('hidden');
+  document.getElementById('app').classList.remove('visible');
+  document.getElementById('loginUser').value='';
+  document.getElementById('loginPass').value='';
+}
+
+// ── DATA ──
+let D = null;
+
+// Full portfolio data embedded as fallback (used when opened as file://)
+// This is always kept in sync with your last exported data.json
+const EMBEDDED_DATA = {"hero":{"name":"Sumaiya Khan","tagline":"CSE · KUET · Bangladesh","photo":"profile.png","bio":"Undergraduate researcher at KUET specializing in NLP, machine learning, and bioinformatics. Passionate about building technology that solves real problems.","roles":["Researcher · NLP & ML","Full-Stack Developer","KUET · CSE · 2026","Bioinformatics Explorer"],"socials":{"github":"https://github.com/sumaiyashifa","linkedin":"https://www.linkedin.com/in/sumaiya-khan-931532263/","codeforces":"https://codeforces.com/profile/sumaiya_khan","email":"sumaiyakhan3572213@gmail.com"}},"about":{"paragraphs":["I'm a final-year <span>Computer Science & Engineering</span> undergraduate at Khulna University of Engineering & Technology (KUET), expected to graduate in 2026. My academic journey has been driven by a deep curiosity about how machines understand and generate language.","My thesis explores <span>Mixture of Experts (MoE) architectures for Grammatical Error Correction (GEC) in Bangla</span>, integrating optimization techniques to improve model efficiency on low-resource languages.","Beyond research, I build full-stack applications — from a <span>Laravel-based job portal</span> to a <span>deep-learning powered plant disease detector</span> with a React Native frontend.","I received the <span>Dean's Award</span> in my 3rd year for academic excellence, and I'm currently exploring bioinformatics, particularly network-based analysis for autoimmune disease target discovery."],"highlights":[{"label":"Education","value":"B.Sc. CSE — KUET","sub":"Expected 2026 · CGPA 3.64/4.00"},{"label":"Research Focus","value":"NLP · Machine Learning","sub":"Bangla GEC · MoE · Bioinformatics"},{"label":"Recognition","value":"Dean's Award","sub":"KUET · 3rd Year (2023-24)"},{"label":"Location","value":"Khulna, Bangladesh","sub":"Open to remote collaboration"},{"label":"Currently Learning","value":"Bioinformatics","sub":"Transcriptomics · Drug repurposing · SLE"}]},"thesis":{"title":"Mixture of Experts for Grammatical Error Correction in Bangla with Optimization Techniques","desc":"Investigating MoE-based transformer architectures for low-resource Bangla NLP, with a focus on grammatical error correction. Applies optimization techniques to balance model capacity and computational efficiency on a Bangla GEC dataset."},"publications":[{"id":1,"type":"conference","typeLabel":"Conference Paper","title":"Accelerating Bangla NLP Tasks with Automatic Mixed Precision: Resource-Efficient Training Preserving Model Efficacy","authors":"Mehrab Hossain Opi, Sumaiya Khan, et al.","myName":"Sumaiya Khan","venue":"28th International Conference on Computer and Information Technology (ICCIT 2025)","status":"accepted","statusLabel":"Accepted"},{"id":2,"type":"conference","typeLabel":"Conference Paper","title":"Study of Two Temperatures on Lab-scale Synthesis and Characterization of Hexagonal Boron Nitride","authors":"Sifat Kawsar, Abrar Rafid Siddique, Abdullah-Al-Noman, Sayem Kawsar, Sumaiya Khan","myName":"Sumaiya Khan","venue":"Chemical Engineering Collaboration · BUET","status":"accepted","statusLabel":"Published"},{"id":3,"type":"review","typeLabel":"Review Paper","title":"Polymer Nanocomposites with Hybrid Nanoparticles - A Review","authors":"Sumaiya Khan (AI/ML Section), Tasnim Alam Subah, Hasan Tasnim Salehin, et al.","myName":"Sumaiya Khan","venue":"Collaborative work · Cross-disciplinary scientific writing","status":"review","statusLabel":"Under Review"},{"id":4,"type":"chapter","typeLabel":"Book Chapter","title":"Introduction to Wood Science and Technology: Structure, Chemistry, Innovations in Wood Formulations, Processing and Engineering","authors":"Sumaiya Khan, Hasan Tasnim Salehin, Md. Fozle Rabbi, et al.","myName":"Sumaiya Khan","venue":"Collaborative book chapter contribution","status":"review","statusLabel":"Under Review"}],"projects":[{"id":1,"title":"Job Search System","desc":"Full-featured job portal enabling employers to post vacancies and candidates to search, apply, and track applications. Built with Laravel MVC, role-based access control, and search/filter functionality.","tags":["Laravel","PHP","MySQL"],"icon":"fa-briefcase","type":"Team Project","github":"https://github.com/sumaiyashifa/web.git","live":""},{"id":2,"title":"Plant Disease Detection","desc":"Mobile application for real-time plant disease detection from images using a trained CNN model. React Native frontend, Node.js REST API backend, MongoDB for data management.","tags":["React Native","Node.js","MongoDB","Deep Learning"],"icon":"fa-leaf","type":"Team Project","github":"https://github.com/deyanuz/Plant-Disease-Detection.git","live":""},{"id":3,"title":"Bookstore Android App","desc":"Android bookstore application with browse, search, cart, and purchase flow. Applied Observer, Adapter, and MVC design patterns for clean, maintainable architecture.","tags":["Android","Java","Design Patterns"],"icon":"fa-book","type":"Team Project","github":"https://github.com/deyanuz/Bookstore","live":""},{"id":4,"title":"SLE Therapeutic Target Discovery","desc":"Exploratory research project applying integrative transcriptomic and network-based analysis to identify therapeutic targets in Systemic Lupus Erythematosus.","tags":["Python","Bioinformatics","Network Analysis"],"icon":"fa-dna","type":"Ongoing","github":"","live":""},{"id":5,"title":"JavaScript Tutorial Blog","desc":"Comprehensive JavaScript tutorial covering Variables, Operators, Data Types, Functions, Loops, Objects, and Error Handling. Written as a club contribution to Bit2Byte at KUET.","tags":["JavaScript","Technical Writing"],"icon":"fa-js","type":"Bit2Byte Club · KUET","github":"https://github.com/sumaiyashifa/javascriptb.git","live":""}],"skills":[{"id":1,"name":"Python","percent":85,"category":"Programming & Frameworks"},{"id":2,"name":"PHP / Laravel","percent":80,"category":"Programming & Frameworks"},{"id":3,"name":"React Native","percent":75,"category":"Programming & Frameworks"},{"id":4,"name":"Node.js","percent":70,"category":"Programming & Frameworks"},{"id":5,"name":"Java / Android","percent":70,"category":"Programming & Frameworks"},{"id":6,"name":"C++","percent":65,"category":"Programming & Frameworks"},{"id":7,"name":"Machine Learning / Deep Learning","percent":78,"category":"Research & Tools"},{"id":8,"name":"NLP (Bangla)","percent":75,"category":"Research & Tools"},{"id":9,"name":"MongoDB / MySQL","percent":72,"category":"Research & Tools"},{"id":10,"name":"Git / GitHub","percent":80,"category":"Research & Tools"},{"id":11,"name":"Bioinformatics (Learning)","percent":35,"category":"Research & Tools"},{"id":12,"name":"Scientific Writing","percent":70,"category":"Research & Tools"}],"skillChips":["REST APIs","MVC Architecture","Design Patterns","Firebase","Postman","HTML / CSS","Problem Solving"],"extracurriculars":[{"id":1,"title":"Senior Mentor for Girls","org":"Bit2Byte - Software R&D Community, KUET","period":"Jan 2025 - Jan 2026 · 1 yr 1 mo","desc":"Mentored junior female students in software development and research skills, fostering an inclusive technical community at KUET.","icon":"fa-chalkboard-teacher"},{"id":2,"title":"Junior Executive Member","org":"BITFEST 2025 - KUET","period":"Oct 2025 - Jan 2026 · 4 mos","desc":"Contributed to organizing one of KUET's flagship technical festivals, coordinating events and managing volunteer teams.","icon":"fa-star"},{"id":3,"title":"Technical Content Writer","org":"Bit2Byte Club, KUET","period":"2024","desc":"Authored a comprehensive JavaScript tutorial blog for the club covering core concepts.","icon":"fa-pen-nib"},{"id":4,"title":"Dean's Award","org":"KUET · Academic Excellence","period":"2023-2024 · 3rd Year","desc":"Awarded the Dean's Award for outstanding academic performance during the 3rd year of the B.Sc. program at KUET.","icon":"fa-trophy"}]};
+
+async function loadData(){
+  try {
+    const r = await fetch('data.json?v='+Date.now());
+    if (!r.ok) throw new Error('not ok');
+    D = await r.json();
+    toast('Loaded data.json successfully','success');
+  } catch(e) {
+    // Opened as file:// or data.json missing → use embedded data
+    D = JSON.parse(JSON.stringify(EMBEDDED_DATA));
+    toast('Using embedded data (file:// mode). Export to sync data.json.','success');
+  }
+  renderAll();
+}
+
+function getDefaultData(){
+  return JSON.parse(JSON.stringify(EMBEDDED_DATA));
+}
+
+function renderAll(){
+  renderDashboard();
+  renderHeroForm();
+  renderPubTable();
+  renderProjTable();
+  renderSkillTable();
+  renderChips();
+  renderExtraTable();
+}
+
+// ── NAV ──
+const pageInfo = {
+  dashboard:{title:'Dashboard',sub:'Overview of your portfolio'},
+  hero:{title:'Hero & Bio',sub:'Edit your name, photo, bio and about section'},
+  research:{title:'Research',sub:'Manage thesis, publications and papers'},
+  projects:{title:'Projects',sub:'Add and edit your portfolio projects'},
+  skills:{title:'Skills',sub:'Edit skills and proficiency levels'},
+  extra:{title:'Activities',sub:'Clubs, awards and extracurriculars'},
+  export:{title:'Export & Deploy',sub:'Download data.json and push to GitHub'}
+};
+
+document.querySelectorAll('.sb-item[data-page]').forEach(el=>{
+  el.addEventListener('click',()=>goPage(el.dataset.page));
+});
+
+function goPage(p){
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.sb-item').forEach(el=>el.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  document.querySelector(`.sb-item[data-page="${p}"]`).classList.add('active');
+  const info = pageInfo[p]||{title:p,sub:''};
+  document.getElementById('topbarTitle').textContent=info.title;
+  document.getElementById('topbarSub').textContent=info.sub;
+}
+
+// ── DASHBOARD ──
+function renderDashboard(){
+  if(!D)return;
+  document.getElementById('stat-pubs').textContent = (D.publications||[]).length;
+  document.getElementById('stat-proj').textContent = (D.projects||[]).length;
+  document.getElementById('stat-skills').textContent = (D.skills||[]).length;
+  document.getElementById('stat-extra').textContent = (D.extracurriculars||[]).length;
+}
+
+// ── HERO FORM ──
+function renderHeroForm(){
+  if(!D)return;
+  const h=D.hero, a=D.about||{};
+  document.getElementById('h-name').value = h.name||'';
+  document.getElementById('h-tagline').value = h.tagline||'';
+  document.getElementById('h-bio').value = h.bio||'';
+  document.getElementById('h-photo').value = h.photo||'';
+  document.getElementById('h-roles').value = (h.roles||[]).join('\n');
+  document.getElementById('h-github').value = h.socials?.github||'';
+  document.getElementById('h-linkedin').value = h.socials?.linkedin||'';
+  document.getElementById('h-codeforces').value = h.socials?.codeforces||'';
+  document.getElementById('h-email').value = h.socials?.email||'';
+  document.getElementById('h-paragraphs').value = (a.paragraphs||[]).join('\n\n');
+  updatePhotoPreview();
+}
+
+function updatePhotoPreview(){
+  const val=document.getElementById('h-photo').value.trim();
+  const img=document.getElementById('photoPreview');
+  const ph=document.getElementById('photoPlaceholder');
+  if(val){img.src=val;img.style.display='block';ph.style.display='none';}
+  else{img.style.display='none';ph.style.display='flex';}
+}
+
+function collectHero(){
+  D.hero.name = document.getElementById('h-name').value.trim();
+  D.hero.tagline = document.getElementById('h-tagline').value.trim();
+  D.hero.bio = document.getElementById('h-bio').value.trim();
+  D.hero.photo = document.getElementById('h-photo').value.trim();
+  D.hero.roles = document.getElementById('h-roles').value.split('\n').map(r=>r.trim()).filter(Boolean);
+  D.hero.socials = {
+    github: document.getElementById('h-github').value.trim(),
+    linkedin: document.getElementById('h-linkedin').value.trim(),
+    codeforces: document.getElementById('h-codeforces').value.trim(),
+    email: document.getElementById('h-email').value.trim()
+  };
+  const parasRaw = document.getElementById('h-paragraphs').value.trim();
+  D.about.paragraphs = parasRaw.split(/\n\n+/).map(p=>p.trim()).filter(Boolean);
+  if(!D.thesis) D.thesis={title:'',desc:''};
+  D.thesis.title = document.getElementById('thesis-title').value.trim();
+  D.thesis.desc = document.getElementById('thesis-desc').value.trim();
+}
+
+// ── PUBLICATIONS ──
+function renderPubTable(){
+  const tbody=document.getElementById('pub-tbody');
+  if(!D){tbody.innerHTML='';return;}
+  const pubs=D.publications||[];
+  // Also populate thesis fields
+  if(D.thesis){
+    document.getElementById('thesis-title').value=D.thesis.title||'';
+    document.getElementById('thesis-desc').value=D.thesis.desc||'';
+  }
+  if(!pubs.length){tbody.innerHTML=`<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:2rem">No publications yet. Click Add Publication.</td></tr>`;return;}
+  tbody.innerHTML=pubs.map((p,i)=>`
+    <tr>
+      <td><span class="badge ${p.type==='conference'?'b-gold':p.type==='review'?'b-blue':'b-green'}">${p.typeLabel||p.type}</span></td>
+      <td style="max-width:320px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500">${p.title}</td>
+      <td><span class="badge ${p.status==='accepted'?'b-green':'b-amber'}">${p.statusLabel||p.status}</span></td>
+      <td><div class="td-actions">
+        <button class="btn btn-blue btn-sm" onclick="editPub(${i})"><i class="fas fa-pen"></i></button>
+        <button class="btn btn-red btn-sm" onclick="delPub(${i})"><i class="fas fa-trash"></i></button>
+      </div></td>
+    </tr>`).join('');
+}
+
+let editingPubIdx=-1;
+function openPubModal(idx=-1){
+  editingPubIdx=idx;
+  document.getElementById('pubModalTitle').textContent=idx===-1?'Add Publication':'Edit Publication';
+  if(idx>=0){
+    const p=D.publications[idx];
+    document.getElementById('pub-type').value=p.type;
+    document.getElementById('pub-status').value=p.status;
+    document.getElementById('pub-title').value=p.title;
+    document.getElementById('pub-authors').value=p.authors;
+    document.getElementById('pub-myname').value=p.myName||'';
+    document.getElementById('pub-statuslabel').value=p.statusLabel||'';
+    document.getElementById('pub-venue').value=p.venue;
+  } else {
+    ['pub-type','pub-status','pub-title','pub-authors','pub-myname','pub-statuslabel','pub-venue'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el.tagName==='SELECT') el.selectedIndex=0; else el.value='';
+    });
+    document.getElementById('pub-myname').value='Sumaiya Khan';
+  }
+  document.getElementById('pubOverlay').classList.add('open');
+}
+function editPub(i){openPubModal(i);}
+function delPub(i){
+  if(!confirm('Delete this publication?'))return;
+  D.publications.splice(i,1);
+  renderPubTable();
+  toast('Publication deleted');
+}
+function savePub(){
+  const typeMap={conference:'Conference Paper',review:'Review Paper',chapter:'Book Chapter',journal:'Journal Article'};
+  const pub={
+    id: editingPubIdx>=0 ? D.publications[editingPubIdx].id : Date.now(),
+    type: document.getElementById('pub-type').value,
+    typeLabel: typeMap[document.getElementById('pub-type').value]||'Paper',
+    title: document.getElementById('pub-title').value.trim(),
+    authors: document.getElementById('pub-authors').value.trim(),
+    myName: document.getElementById('pub-myname').value.trim(),
+    venue: document.getElementById('pub-venue').value.trim(),
+    status: document.getElementById('pub-status').value,
+    statusLabel: document.getElementById('pub-statuslabel').value.trim()||( document.getElementById('pub-status').value==='accepted'?'Accepted':'Under Review')
+  };
+  if(!pub.title){toast('Title is required','error');return;}
+  if(editingPubIdx>=0) D.publications[editingPubIdx]=pub;
+  else D.publications.push(pub);
+  renderPubTable();
+  closeModal('pubOverlay');
+  toast(editingPubIdx>=0?'Publication updated':'Publication added');
+}
+
+// ── PROJECTS ──
+function renderProjTable(){
+  const tbody=document.getElementById('proj-tbody');
+  if(!D){tbody.innerHTML='';return;}
+  const projs=D.projects||[];
+  if(!projs.length){tbody.innerHTML=`<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:2rem">No projects yet.</td></tr>`;return;}
+  tbody.innerHTML=projs.map((p,i)=>`
+    <tr>
+      <td style="font-weight:500"><i class="fas ${p.icon||'fa-folder'}" style="color:var(--gold);margin-right:6px"></i>${p.title}</td>
+      <td><span class="badge b-gray">${p.type}</span></td>
+      <td style="max-width:180px">${(p.tags||[]).slice(0,3).map(t=>`<span class="badge b-blue" style="margin:1px">${t}</span>`).join('')}</td>
+      <td>${p.github?`<a href="${p.github}" target="_blank" style="color:var(--blue);font-size:0.78rem"><i class="fab fa-github"></i> Link</a>`:'<span style="color:var(--muted2)">—</span>'}</td>
+      <td><div class="td-actions">
+        <button class="btn btn-blue btn-sm" onclick="editProj(${i})"><i class="fas fa-pen"></i></button>
+        <button class="btn btn-red btn-sm" onclick="delProj(${i})"><i class="fas fa-trash"></i></button>
+      </div></td>
+    </tr>`).join('');
+}
+
+let editingProjIdx=-1;
+function openProjModal(idx=-1){
+  editingProjIdx=idx;
+  document.getElementById('projModalTitle').textContent=idx===-1?'Add Project':'Edit Project';
+  if(idx>=0){
+    const p=D.projects[idx];
+    document.getElementById('proj-title').value=p.title;
+    document.getElementById('proj-desc').value=p.desc;
+    document.getElementById('proj-type').value=p.type;
+    document.getElementById('proj-icon').value=p.icon||'fa-folder';
+    document.getElementById('proj-github').value=p.github||'';
+    document.getElementById('proj-live').value=p.live||'';
+    document.getElementById('proj-tags').value=(p.tags||[]).join(', ');
+  } else {
+    ['proj-title','proj-desc','proj-type','proj-github','proj-live','proj-tags'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('proj-icon').value='fa-folder';
+  }
+  document.getElementById('projOverlay').classList.add('open');
+}
+function editProj(i){openProjModal(i);}
+function delProj(i){
+  if(!confirm('Delete this project?'))return;
+  D.projects.splice(i,1);
+  renderProjTable();
+  toast('Project deleted');
+}
+function saveProj(){
+  const proj={
+    id: editingProjIdx>=0 ? D.projects[editingProjIdx].id : Date.now(),
+    title: document.getElementById('proj-title').value.trim(),
+    desc: document.getElementById('proj-desc').value.trim(),
+    type: document.getElementById('proj-type').value.trim(),
+    icon: document.getElementById('proj-icon').value.trim()||'fa-folder',
+    github: document.getElementById('proj-github').value.trim(),
+    live: document.getElementById('proj-live').value.trim(),
+    tags: document.getElementById('proj-tags').value.split(',').map(t=>t.trim()).filter(Boolean)
+  };
+  if(!proj.title){toast('Title is required','error');return;}
+  if(editingProjIdx>=0) D.projects[editingProjIdx]=proj;
+  else D.projects.push(proj);
+  renderProjTable();
+  closeModal('projOverlay');
+  toast(editingProjIdx>=0?'Project updated':'Project added');
+}
+
+// ── SKILLS ──
+function renderSkillTable(){
+  const tbody=document.getElementById('skill-tbody');
+  if(!D){tbody.innerHTML='';return;}
+  const skills=D.skills||[];
+  if(!skills.length){tbody.innerHTML=`<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:2rem">No skills yet.</td></tr>`;return;}
+  tbody.innerHTML=skills.map((s,i)=>`
+    <tr>
+      <td style="font-weight:500">${s.name}</td>
+      <td><span class="badge ${s.category==='Programming & Frameworks'?'b-blue':'b-green'}" style="font-size:0.62rem">${s.category}</span></td>
+      <td>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="sbar-wrap"><div class="sbar-track"><div class="sbar-fill" style="width:${s.percent}%"></div></div></div>
+          <span style="font-size:0.75rem;color:var(--muted);font-family:monospace">${s.percent}%</span>
+        </div>
+      </td>
+      <td><div class="td-actions">
+        <button class="btn btn-blue btn-sm" onclick="editSkill(${i})"><i class="fas fa-pen"></i></button>
+        <button class="btn btn-red btn-sm" onclick="delSkill(${i})"><i class="fas fa-trash"></i></button>
+      </div></td>
+    </tr>`).join('');
+}
+
+let editingSkillIdx=-1;
+function openSkillModal(idx=-1){
+  editingSkillIdx=idx;
+  document.getElementById('skillModalTitle').textContent=idx===-1?'Add Skill':'Edit Skill';
+  if(idx>=0){
+    const s=D.skills[idx];
+    document.getElementById('skill-name').value=s.name;
+    document.getElementById('skill-cat').value=s.category;
+    document.getElementById('skill-percent').value=s.percent;
+    document.getElementById('skill-pct-label').textContent=s.percent;
+  } else {
+    document.getElementById('skill-name').value='';
+    document.getElementById('skill-cat').selectedIndex=0;
+    document.getElementById('skill-percent').value=75;
+    document.getElementById('skill-pct-label').textContent=75;
+  }
+  document.getElementById('skillOverlay').classList.add('open');
+}
+function editSkill(i){openSkillModal(i);}
+function delSkill(i){
+  if(!confirm('Delete this skill?'))return;
+  D.skills.splice(i,1);
+  renderSkillTable();
+  toast('Skill deleted');
+}
+function saveSkill(){
+  const skill={
+    id: editingSkillIdx>=0 ? D.skills[editingSkillIdx].id : Date.now(),
+    name: document.getElementById('skill-name').value.trim(),
+    category: document.getElementById('skill-cat').value,
+    percent: parseInt(document.getElementById('skill-percent').value)
+  };
+  if(!skill.name){toast('Skill name is required','error');return;}
+  if(editingSkillIdx>=0) D.skills[editingSkillIdx]=skill;
+  else D.skills.push(skill);
+  renderSkillTable();
+  closeModal('skillOverlay');
+  toast(editingSkillIdx>=0?'Skill updated':'Skill added');
+}
+
+// ── CHIPS ──
+function renderChips(){
+  if(!D)return;
+  const wrap=document.getElementById('chipWrap');
+  wrap.innerHTML=(D.skillChips||[]).map((c,i)=>`
+    <span class="tag-chip">${c}<button onclick="delChip(${i})"><i class="fas fa-times"></i></button></span>`).join('');
+}
+function handleChipKey(e){
+  if(e.key==='Enter'){
+    const val=e.target.value.trim();
+    if(val){D.skillChips=D.skillChips||[];D.skillChips.push(val);renderChips();e.target.value='';}
+    e.preventDefault();
+  }
+}
+function delChip(i){D.skillChips.splice(i,1);renderChips();}
+
+// ── ACTIVITIES ──
+function renderExtraTable(){
+  const tbody=document.getElementById('extra-tbody');
+  if(!D){tbody.innerHTML='';return;}
+  const items=D.extracurriculars||[];
+  if(!items.length){tbody.innerHTML=`<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:2rem">No activities yet.</td></tr>`;return;}
+  tbody.innerHTML=items.map((e,i)=>`
+    <tr>
+      <td style="font-weight:500"><i class="fas ${e.icon||'fa-star'}" style="color:var(--gold);margin-right:6px"></i>${e.title}</td>
+      <td style="color:var(--muted)">${e.org}</td>
+      <td style="color:var(--muted);font-size:0.78rem">${e.period}</td>
+      <td><div class="td-actions">
+        <button class="btn btn-blue btn-sm" onclick="editExtra(${i})"><i class="fas fa-pen"></i></button>
+        <button class="btn btn-red btn-sm" onclick="delExtra(${i})"><i class="fas fa-trash"></i></button>
+      </div></td>
+    </tr>`).join('');
+}
+
+let editingExtraIdx=-1;
+function openExtraModal(idx=-1){
+  editingExtraIdx=idx;
+  document.getElementById('extraModalTitle').textContent=idx===-1?'Add Activity':'Edit Activity';
+  if(idx>=0){
+    const e=D.extracurriculars[idx];
+    document.getElementById('extra-title').value=e.title;
+    document.getElementById('extra-org').value=e.org;
+    document.getElementById('extra-period').value=e.period;
+    document.getElementById('extra-desc').value=e.desc;
+    document.getElementById('extra-icon').value=e.icon||'fa-star';
+  } else {
+    ['extra-title','extra-org','extra-period','extra-desc'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('extra-icon').value='fa-star';
+  }
+  document.getElementById('extraOverlay').classList.add('open');
+}
+function editExtra(i){openExtraModal(i);}
+function delExtra(i){
+  if(!confirm('Delete this activity?'))return;
+  D.extracurriculars.splice(i,1);
+  renderExtraTable();
+  toast('Activity deleted');
+}
+function saveExtra(){
+  const item={
+    id: editingExtraIdx>=0 ? D.extracurriculars[editingExtraIdx].id : Date.now(),
+    title: document.getElementById('extra-title').value.trim(),
+    org: document.getElementById('extra-org').value.trim(),
+    period: document.getElementById('extra-period').value.trim(),
+    desc: document.getElementById('extra-desc').value.trim(),
+    icon: document.getElementById('extra-icon').value.trim()||'fa-star'
+  };
+  if(!item.title){toast('Title is required','error');return;}
+  if(editingExtraIdx>=0) D.extracurriculars[editingExtraIdx]=item;
+  else D.extracurriculars.push(item);
+  renderExtraTable();
+  closeModal('extraOverlay');
+  toast(editingExtraIdx>=0?'Activity updated':'Activity added');
+}
+
+// ── SAVE ──
+function saveData(){
+  collectHero();
+  renderDashboard();
+  const btn=document.getElementById('saveBtn');
+  btn.classList.add('saved');
+  btn.innerHTML='<i class="fas fa-check"></i> Saved!';
+  toast('All changes saved successfully!','success');
+  setTimeout(()=>{btn.classList.remove('saved');btn.innerHTML='<i class="fas fa-save"></i> Save Changes';},2500);
+}
+
+// ── EXPORT ──
+function exportJSON(){
+  collectHero();
+  // 1. Download data.json as before
+  const jsonStr = JSON.stringify(D, null, 2);
+  const blob = new Blob([jsonStr], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'data.json';
+  a.click();
+  toast('data.json downloaded! Also updating portfolio.html...','success');
+
+  // 2. Read portfolio.html and update the EMBEDDED constant inside it
+  setTimeout(() => {
+    fetch('portfolio.html?v=' + Date.now())
+      .then(r => r.text())
+      .then(html => {
+        // Replace the EMBEDDED data object in portfolio.html
+        const compactJSON = JSON.stringify(D);
+        const updated = html.replace(
+          /const EMBEDDED = \{.*?\};(\s*\/\/ ── EMBEDDED)/s,
+          'const EMBEDDED = ' + compactJSON + ';\n  $1'
+        ).replace(
+          /const EMBEDDED = \{[\s\S]*?\};(\s*function patch)/,
+          'const EMBEDDED = ' + compactJSON + ';\n\n  $1'
+        );
+        const blob2 = new Blob([updated], {type:'text/html'});
+        const a2 = document.createElement('a');
+        a2.href = URL.createObjectURL(blob2);
+        a2.download = 'portfolio.html';
+        a2.click();
+        toast('portfolio.html also updated with new data!','success');
+      })
+      .catch(() => {
+        toast('Could not auto-update portfolio.html (file:// mode). Replace data.json manually.','error');
+      });
+  }, 800);
+}
+
+// ── MODAL HELPERS ──
+function openModal(id){document.getElementById(id).classList.add('open')}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+document.querySelectorAll('.overlay').forEach(el=>{
+  el.addEventListener('click',e=>{ if(e.target===el) el.classList.remove('open'); });
+});
+
+// ── TOAST ──
+function toast(msg,type='success'){
+  const el=document.createElement('div');
+  el.className=`toast-item ${type}`;
+  el.innerHTML=`<i class="fas ${type==='success'?'fa-check-circle':type==='error'?'fa-exclamation-circle':'fa-info-circle'}"></i>${msg}`;
+  document.getElementById('toast').appendChild(el);
+  setTimeout(()=>el.remove(),3500);
+}
+</script>
+</body>
+</html>

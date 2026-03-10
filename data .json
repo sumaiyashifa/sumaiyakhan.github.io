@@ -1,0 +1,294 @@
+{
+  "hero": {
+    "name": "Sumaiya Khan",
+    "tagline": "CSE · KUET · Bangladesh",
+    "photo": "profile.png",
+    "bio": "Undergraduate researcher at KUET specializing in NLP, machine learning, and bioinformatics. Passionate about building technology that solves real problems.",
+    "roles": [
+      "Researcher · NLP & ML",
+      "Full-Stack Developer",
+      "KUET · CSE · 2026",
+      "Bioinformatics Explorer"
+    ],
+    "socials": {
+      "github": "https://github.com/sumaiyashifa",
+      "linkedin": "https://www.linkedin.com/in/sumaiya-khan-931532263/",
+      "codeforces": "https://codeforces.com/profile/sumaiya_khan",
+      "email": "sumaiyakhan3572213@gmail.com"
+    }
+  },
+  "about": {
+    "paragraphs": [
+      "I'm a final-year <span>Computer Science & Engineering</span> undergraduate at Khulna University of Engineering & Technology (KUET), expected to graduate in 2026. My academic journey has been driven by a deep curiosity about how machines understand and generate language.",
+      "My thesis explores <span>Mixture of Experts (MoE) architectures for Grammatical Error Correction (GEC) in Bangla</span>, integrating optimization techniques to improve model efficiency on low-resource languages.",
+      "Beyond research, I build full-stack applications — from a <span>Laravel-based job portal</span> to a <span>deep-learning powered plant disease detector</span> with a React Native frontend.",
+      "I received the <span>Dean's Award</span> in my 3rd year for academic excellence, and I'm currently exploring bioinformatics, particularly network-based analysis for autoimmune disease target discovery."
+    ],
+    "highlights": [
+      {
+        "label": "Education",
+        "value": "B.Sc. CSE — KUET",
+        "sub": "Expected 2026 · CGPA 3.64/4.00"
+      },
+      {
+        "label": "Research Focus",
+        "value": "NLP · Machine Learning",
+        "sub": "Bangla GEC · MoE · Bioinformatics"
+      },
+      {
+        "label": "Recognition",
+        "value": "Dean's Award",
+        "sub": "KUET · 3rd Year (2023-24)"
+      },
+      {
+        "label": "Location",
+        "value": "Khulna, Bangladesh",
+        "sub": "Open to remote collaboration"
+      },
+      {
+        "label": "Currently Learning",
+        "value": "Bioinformatics",
+        "sub": "Transcriptomics · Drug repurposing · SLE"
+      }
+    ]
+  },
+  "thesis": {
+    "title": "Mixture of Experts for Grammatical Error Correction in Bangla with Optimization Techniques",
+    "desc": "Investigating MoE-based transformer architectures for low-resource Bangla NLP, with a focus on grammatical error correction. Applies optimization techniques to balance model capacity and computational efficiency on a Bangla GEC dataset."
+  },
+  "publications": [
+    {
+      "id": 1,
+      "type": "conference",
+      "typeLabel": "Conference Paper",
+      "title": "Accelerating Bangla NLP Tasks with Automatic Mixed Precision: Resource-Efficient Training Preserving Model Efficacy",
+      "authors": "Mehrab Hossain Opi, Sumaiya Khan, et al.",
+      "myName": "Sumaiya Khan",
+      "venue": "28th International Conference on Computer and Information Technology (ICCIT 2025)",
+      "status": "accepted",
+      "statusLabel": "Accepted"
+    },
+    {
+      "id": 2,
+      "type": "conference",
+      "typeLabel": "Conference Paper",
+      "title": "Study of Two Temperatures on Lab-scale Synthesis and Characterization of Hexagonal Boron Nitride",
+      "authors": "Sifat Kawsar, Abrar Rafid Siddique, Abdullah-Al-Noman, Sayem Kawsar, Sumaiya Khan",
+      "myName": "Sumaiya Khan",
+      "venue": "Chemical Engineering Collaboration · BUET",
+      "status": "accepted",
+      "statusLabel": "Published"
+    },
+    {
+      "id": 3,
+      "type": "review",
+      "typeLabel": "Review Paper",
+      "title": "Polymer Nanocomposites with Hybrid Nanoparticles - A Review",
+      "authors": "Sumaiya Khan (AI/ML Section), Tasnim Alam Subah, Hasan Tasnim Salehin, et al.",
+      "myName": "Sumaiya Khan",
+      "venue": "Collaborative work · Cross-disciplinary scientific writing",
+      "status": "review",
+      "statusLabel": "Under Review"
+    },
+    {
+      "id": 4,
+      "type": "chapter",
+      "typeLabel": "Book Chapter",
+      "title": "Introduction to Wood Science and Technology: Structure, Chemistry, Innovations in Wood Formulations, Processing and Engineering",
+      "authors": "Sumaiya Khan, Hasan Tasnim Salehin, Md. Fozle Rabbi, et al.",
+      "myName": "Sumaiya Khan",
+      "venue": "Collaborative book chapter contribution",
+      "status": "review",
+      "statusLabel": "Under Review"
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "Job Search System",
+      "desc": "Full-featured job portal enabling employers to post vacancies and candidates to search, apply, and track applications. Built with Laravel MVC, role-based access control, and search/filter functionality.",
+      "tags": [
+        "Laravel",
+        "PHP",
+        "MySQL"
+      ],
+      "icon": "fa-briefcase",
+      "type": "Team Project",
+      "github": "https://github.com/sumaiyashifa/web.git",
+      "live": ""
+    },
+    {
+      "id": 2,
+      "title": "Plant Disease Detection",
+      "desc": "Mobile application for real-time plant disease detection from images using a trained CNN model. React Native frontend, Node.js REST API backend, MongoDB for data management.",
+      "tags": [
+        "React Native",
+        "Node.js",
+        "MongoDB",
+        "Deep Learning"
+      ],
+      "icon": "fa-leaf",
+      "type": "Team Project",
+      "github": "https://github.com/deyanuz/Plant-Disease-Detection.git",
+      "live": ""
+    },
+    {
+      "id": 3,
+      "title": "Bookstore Android App",
+      "desc": "Android bookstore application with browse, search, cart, and purchase flow. Applied Observer, Adapter, and MVC design patterns for clean, maintainable architecture.",
+      "tags": [
+        "Android",
+        "Java",
+        "Design Patterns"
+      ],
+      "icon": "fa-book",
+      "type": "Team Project",
+      "github": "https://github.com/deyanuz/Bookstore",
+      "live": ""
+    },
+    {
+      "id": 4,
+      "title": "SLE Therapeutic Target Discovery",
+      "desc": "Exploratory research project applying integrative transcriptomic and network-based analysis to identify therapeutic targets in Systemic Lupus Erythematosus.",
+      "tags": [
+        "Python",
+        "Bioinformatics",
+        "Network Analysis"
+      ],
+      "icon": "fa-dna",
+      "type": "Ongoing",
+      "github": "",
+      "live": ""
+    },
+    {
+      "id": 5,
+      "title": "JavaScript Tutorial Blog",
+      "desc": "Comprehensive JavaScript tutorial covering Variables, Operators, Data Types, Functions, Loops, Objects, and Error Handling. Written as a club contribution to Bit2Byte at KUET.",
+      "tags": [
+        "JavaScript",
+        "Technical Writing"
+      ],
+      "icon": "fa-js",
+      "type": "Bit2Byte Club · KUET",
+      "github": "https://github.com/sumaiyashifa/javascriptb.git",
+      "live": ""
+    }
+  ],
+  "skills": [
+    {
+      "id": 1,
+      "name": "Python",
+      "percent": 85,
+      "category": "Programming & Frameworks"
+    },
+    {
+      "id": 2,
+      "name": "PHP / Laravel",
+      "percent": 80,
+      "category": "Programming & Frameworks"
+    },
+    {
+      "id": 3,
+      "name": "React Native",
+      "percent": 75,
+      "category": "Programming & Frameworks"
+    },
+    {
+      "id": 4,
+      "name": "Node.js",
+      "percent": 70,
+      "category": "Programming & Frameworks"
+    },
+    {
+      "id": 5,
+      "name": "Java / Android",
+      "percent": 70,
+      "category": "Programming & Frameworks"
+    },
+    {
+      "id": 6,
+      "name": "C++",
+      "percent": 65,
+      "category": "Programming & Frameworks"
+    },
+    {
+      "id": 7,
+      "name": "Machine Learning / Deep Learning",
+      "percent": 78,
+      "category": "Research & Tools"
+    },
+    {
+      "id": 8,
+      "name": "NLP (Bangla)",
+      "percent": 75,
+      "category": "Research & Tools"
+    },
+    {
+      "id": 9,
+      "name": "MongoDB / MySQL",
+      "percent": 72,
+      "category": "Research & Tools"
+    },
+    {
+      "id": 10,
+      "name": "Git / GitHub",
+      "percent": 80,
+      "category": "Research & Tools"
+    },
+    {
+      "id": 11,
+      "name": "Bioinformatics (Learning)",
+      "percent": 35,
+      "category": "Research & Tools"
+    },
+    {
+      "id": 12,
+      "name": "Scientific Writing",
+      "percent": 70,
+      "category": "Research & Tools"
+    }
+  ],
+  "skillChips": [
+    "REST APIs",
+    "MVC Architecture",
+    "Design Patterns",
+    "Firebase",
+    "Postman",
+    "HTML / CSS",
+    "Problem Solving"
+  ],
+  "extracurriculars": [
+    {
+      "id": 1,
+      "title": "Senior Mentor for Girls",
+      "org": "Bit2Byte - Software R&D Community, KUET",
+      "period": "Jan 2025 - Jan 2026 · 1 yr 1 mo",
+      "desc": "Mentored junior female students in software development and research skills, fostering an inclusive technical community at KUET.",
+      "icon": "fa-chalkboard-teacher"
+    },
+    {
+      "id": 2,
+      "title": "Junior Executive Member",
+      "org": "BITFEST 2025 - KUET",
+      "period": "Oct 2025 - Jan 2026 · 4 mos",
+      "desc": "Contributed to organizing one of KUET's flagship technical festivals, coordinating events and managing volunteer teams.",
+      "icon": "fa-star"
+    },
+    {
+      "id": 3,
+      "title": "Technical Content Writer",
+      "org": "Bit2Byte Club, KUET",
+      "period": "2024",
+      "desc": "Authored a comprehensive JavaScript tutorial blog for the club covering core concepts.",
+      "icon": "fa-pen-nib"
+    },
+    {
+      "id": 4,
+      "title": "Dean's Award",
+      "org": "KUET · Academic Excellence",
+      "period": "2023-2024 · 3rd Year",
+      "desc": "Awarded the Dean's Award for outstanding academic performance during the 3rd year of the B.Sc. program at KUET.",
+      "icon": "fa-trophy"
+    }
+  ]
+}
